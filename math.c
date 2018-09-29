@@ -6,7 +6,7 @@ uint32_t power(uint32_t num, uint16_t n) {
         sum = sum * num;
     }
 
-    if (n == 1) {
+    if (n == 0) {
         return 1;
     }
 
