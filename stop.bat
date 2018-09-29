@@ -1,0 +1,1 @@
+@vboxmanage controlvm "OS" poweroff
