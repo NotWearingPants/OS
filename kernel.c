@@ -60,7 +60,7 @@ void main() {
             enterPrees = 0;
             pos_y++;
 
-            if (command[0] == 'A' && command[1] == 'm' && command[2] == 'i' && command[3] == 't' && command[4] == '\0') {
+            if (command[0] == 't' && command[1] == 'i' && command[2] == 'm' && command[3] == 'e' && command[4] == '\0') {
                 print_time(0, pos_y, 0x0f);
                 pos_y++;
             }
