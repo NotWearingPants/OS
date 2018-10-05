@@ -11,6 +11,18 @@
 // commands
 #define CMD_READ_CONTROLLER_OUTPUT 0xd0
 
+// you can always read status, without IS_PREPARED_TO_READ
+#define READ_STATUS()           (inb(STATUS_PORT))
+#define READ_DATA()             (inb(DATA_PORT))
+#define WRITE_DATA(value)       (outb(DATA_PORT, (value)))
+#define WRITE_COMMAND(command)  (outb(COMMAND_PORT, (command)))
+
+#define IS_PREPARED_TO_READ()   (GET_BIT(READ_STATUS(), 0) == 1)
+#define IS_PREPARED_TO_WRITE()  (GET_BIT(READ_STATUS(), 1) == 0)
+
+#define PREPARE_TO_READ()       while (!IS_PREPARED_TO_READ())
+#define PREPARE_TO_WRITE()      while (!IS_PREPARED_TO_WRITE())
+
 const uint8_t key_map[] = {
     '\0', '\0', '1',  '2',  '3',  '4',  '5',  '6',  '7',  '8',  '9',  '0',  '-',  '=',  '\0', '\0',
     'q',  'w',  'e',  'r',  't',  'y',  'u',  'i',  'o',  'p',  '[',  ']',  '\n', '\0', 'a',  's',
@@ -31,25 +43,16 @@ const uint8_t key_map[] = {
 };
 
 void keyboard_handle_interrupt() {
-    if (((inb(STATUS_PORT) >> 0) & 1) == 1) {
-        uint8_t data = inb(DATA_PORT);
-
-        uint8_t key = key_map[data];
-        if (key == '\0') {
-            return;
-        }
-        shell_handle_key(key);
+    if (!IS_PREPARED_TO_READ()) {
+        return;
     }
+
+    uint8_t data = READ_DATA();
+
+    uint8_t key = key_map[data];
+    if (key == '\0') {
+        return;
+    }
+
+    shell_handle_key(key);
 }
-
-
-
-
-
-
-
-//     while (((inb(STATUS_PORT) >> 1) & 1) != 0);
-//     outb(COMMAND_PORT, CMD_READ_CONTROLLER_OUTPUT);
-
-//     while (((inb(STATUS_PORT) >> 0) & 1) != 1);
-//     uint8_t controller_output = inb(DATA_PORT);
