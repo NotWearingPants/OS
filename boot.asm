@@ -140,8 +140,8 @@ idt_end:
     %endrep
 
 interrupt:
+    ; TODO: pusha and other stuff
     extern handle_interrupt
-    ; do stuff...
     call handle_interrupt
     add esp, 4
     iret

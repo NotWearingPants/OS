@@ -8,6 +8,8 @@ typedef short int16_t;
 typedef unsigned int uint32_t;
 typedef int int32_t;
 
+typedef uint8_t bool;
+
 #define FALSE 0
 #define TRUE 1
 
