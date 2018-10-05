@@ -2,6 +2,7 @@
 #include "cmos.h"
 #include "screen.h"
 #include "keyboard.h"
+#include "string.h"
 
 #define PROMPT ">>"
 #define PROMPT_LENGTH (sizeof(PROMPT) - 1)
@@ -59,7 +60,8 @@ void start_shell() {
         enterPressed = FALSE;
         pos_y++;
 
-        if (command[0] == 't' && command[1] == 'i' && command[2] == 'm' && command[3] == 'e' && command[4] == '\0') {
+        // if (command[0] == 't' && command[1] == 'i' && command[2] == 'm' && command[3] == 'e' && command[4] == '\0') {
+        if (string_compare((char*)command, "time")) {
             print_time(0, pos_y, DEFAULT_COLOR);
 
             pos_y++;
