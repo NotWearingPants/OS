@@ -16,15 +16,13 @@ void print_string(uint8_t x, uint8_t y, char *string, uint8_t color) {
 
 void print_number(uint8_t x, uint8_t y, uint32_t num) {
     uint8_t count = 1;
-    uint32_t val = 10;
-    while (1) {
-        if (num / val == 0) {
+    uint8_t sum = num;
+    while (TRUE) {
+        sum /= 10;
+        if (sum == 0) {
             break;
         }
-        else {
-            count++;
-            val = val * 10;
-        }
+        count++;
     }
 
     int pos = 0;
