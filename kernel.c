@@ -2,6 +2,7 @@
 #include "screen.h"
 #include "pic.h"
 #include "keyboard.h"
+#include "shell.h"
 
 void main() {
     start_shell();
