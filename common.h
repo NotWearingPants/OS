@@ -1,3 +1,6 @@
+#ifndef _COMMON_H_
+#define _COMMON_H_
+
 typedef unsigned char uint8_t;
 typedef signed char int8_t;
 typedef unsigned short uint16_t;
@@ -10,3 +13,5 @@ typedef int int32_t;
 
 void outb(uint16_t port, uint8_t value);
 uint8_t inb(uint16_t port);
+
+#endif
