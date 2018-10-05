@@ -1,3 +1,6 @@
+#ifndef _SCREEN_H_
+#define _SCREEN_H_
+
 #include "common.h"
 
 #define SCREEN_ADDRESS ((uint8_t*)0xb8000)
@@ -23,14 +26,14 @@ enum Color {
     COLOR_BRIGHT_WHITE  = 0xF,
 };
 
-inline uint8_t make_color(enum Color background_color, enum Color text_color) {
-    return ((((uint8_t)background_color) << 4) | ((uint8_t)text_color));
-}
+#define COLOR(text_color, background_color) ((((uint8_t)COLOR_##background_color) << 4) | ((uint8_t)COLOR_##text_color))
 
-#define DEFAULT_COLOR make_color(COLOR_BLACK, COLOR_BRIGHT_WHITE)
+#define DEFAULT_COLOR COLOR(BRIGHT_WHITE, BLACK)
 
 void print_char(uint8_t x, uint8_t y, uint8_t character, uint8_t color);
 void print_string(uint8_t x, uint8_t y, char *string, uint8_t color);
 void move_cursor(uint8_t x, uint8_t y);
 void print_number(uint8_t x, uint8_t y, uint32_t num, uint8_t color);
 uint32_t power(uint32_t num, uint16_t n);
+
+#endif
