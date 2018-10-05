@@ -14,7 +14,7 @@ void print_string(uint8_t x, uint8_t y, char *string, uint8_t color) {
     }
 }
 
-void print_number(uint8_t x, uint8_t y, uint32_t num) {
+void print_number(uint8_t x, uint8_t y, uint32_t num, uint8_t color) {
     uint8_t count = 1;
     uint8_t sum = num;
     while (TRUE) {
@@ -27,7 +27,7 @@ void print_number(uint8_t x, uint8_t y, uint32_t num) {
 
     int pos = 0;
     for (int i = count; i >= 1; i--) {
-        print_char(x + pos, y, '0' + ((num / power(10, i - 1)) % 10), 0x0f);
+        print_char(x + pos, y, '0' + ((num / power(10, i - 1)) % 10), color);
         pos++;
     }
 
