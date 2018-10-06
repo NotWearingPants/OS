@@ -15,3 +15,13 @@ bool string_compare(char* left, char* right) {
 
     return TRUE;
 }
+
+bool string_is_empty(char* command) {
+    if (command[0] == '\0') {
+        return TRUE;
+    }
+
+    return FALSE;
+
+    // return (command[0] == '\0');
+}
