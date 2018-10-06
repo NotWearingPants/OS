@@ -3,8 +3,8 @@ set -e # fail on error
 
 KERNEL_SECTOR_LENGTH=50
 
-C_FILES='kernel common cmos screen math pic keyboard shell string'
-O_FILES='boot.o kernel.o common.o cmos.o screen.o math.o pic.o keyboard.o shell.o string.o'
+C_FILES='kernel common cmos screen math pic keyboard shell string filesystem'
+O_FILES='boot.o kernel.o common.o cmos.o screen.o math.o pic.o keyboard.o shell.o string.o filesystem.o'
 
 # cleanup
 rm -f $O_FILES os.flp

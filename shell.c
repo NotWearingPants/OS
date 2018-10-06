@@ -3,6 +3,7 @@
 #include "screen.h"
 #include "keyboard.h"
 #include "string.h"
+#include "filesystem.h"
 
 #define PROMPT ">>"
 #define PROMPT_LENGTH (sizeof(PROMPT) - 1)
@@ -65,8 +66,13 @@ void start_shell() {
             print_time(0, pos_y, DEFAULT_COLOR);
 
             pos_y++;
-        }
-        else {
+        } else if (string_compare((char*)command, "read")) {
+            print_string(0, pos_y, read_file("test.txt"), DEFAULT_COLOR);
+
+            pos_y++;
+        } else if (string_compare((char*)command, "write")) {
+            write_file("test.txt", "hello");
+        } else {
             print_string(0, pos_y, "'", DEFAULT_COLOR);
             print_string(1, pos_y, (char*)command, DEFAULT_COLOR);
             print_string(pos_x - (PROMPT_LENGTH - 1), pos_y, "' is not recognized as command", DEFAULT_COLOR);
