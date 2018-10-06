@@ -54,9 +54,6 @@ void start_shell() {
         print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
         update_cursor();
 
-        // wait for interrupt of enter
-        // TODO: while (!enterPressed); doesn't work
-        
         key = get_char();
         shell_handle_key(key);
 

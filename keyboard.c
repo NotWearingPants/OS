@@ -48,7 +48,7 @@ volatile bool keyPressed = FALSE;
 uint8_t key;
 
 char get_char() {
-    while (keyPressed != TRUE);
+    while (!keyPressed);
     keyPressed = FALSE;
 
     return key;

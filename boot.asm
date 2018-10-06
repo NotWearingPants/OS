@@ -134,14 +134,15 @@ idt_end:
     %assign i 0
     %rep 32
     interrupt%[i]:
+        pusha
         push %[i]
-        jmp interrupt
+        jmp interrupt_common
     %assign i i+1
     %endrep
 
-interrupt:
-    ; TODO: pusha and other stuff
+interrupt_common:
     extern handle_interrupt
     call handle_interrupt
     add esp, 4
+    popa
     iret
