@@ -72,7 +72,7 @@ void start_shell() {
             pos_y++;
         } else if (string_compare((char*)command, "write")) {
             write_file("test.txt", "hello");
-        } else {
+        } else if (command[0] != '\0'){
             print_string(0, pos_y, "'", DEFAULT_COLOR);
             print_string(1, pos_y, (char*)command, DEFAULT_COLOR);
             print_string(pos_x - (PROMPT_LENGTH - 1), pos_y, "' is not recognized as command", DEFAULT_COLOR);
