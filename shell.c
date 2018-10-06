@@ -8,11 +8,10 @@
 #define PROMPT ">>"
 #define PROMPT_LENGTH (sizeof(PROMPT) - 1)
 
-volatile uint8_t pos_x = PROMPT_LENGTH;
+uint8_t pos_x = PROMPT_LENGTH;
 uint8_t pos_y = 0;
 
-// volatile bool enterPressed = FALSE;
-volatile char command[100];
+char command[100];
 
 void update_cursor() {
     move_cursor(pos_x, pos_y);
@@ -48,13 +47,12 @@ void print_time(uint8_t x, uint8_t y, uint8_t color) {
 }
 
 void start_shell() {
-    char key;
     while (TRUE) {
         // print prompt
         print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
         update_cursor();
 
-        key = get_char();
+        uint8_t key = get_char();
         shell_handle_key(key);
 
         if (key == '\n') {
@@ -83,11 +81,6 @@ void start_shell() {
 }
 
 void shell_handle_key(uint8_t key) {
-    // we can miss some keys :(
-    // if (enterPressed) {
-    //     return;
-    // }
-
     if (key == '\n') {
         command[pos_x - PROMPT_LENGTH] = '\0';
     }

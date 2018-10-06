@@ -1,5 +1,4 @@
 #include "keyboard.h"
-#include "common.h"
 #include "shell.h"
 
 /// 8042 PS/2 Controller ///
@@ -43,11 +42,10 @@ const uint8_t key_map[] = {
     '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
 };
 
-// volatile bool enterPressed = FALSE;
 volatile bool keyPressed = FALSE;
-uint8_t key;
+volatile uint8_t key;
 
-char get_char() {
+uint8_t get_char() {
     while (!keyPressed);
     keyPressed = FALSE;
 
@@ -61,14 +59,12 @@ void keyboard_handle_interrupt() {
 
     uint8_t data = READ_DATA();
 
+    // we can miss some keys :(
     key = key_map[data];
 
     if (key == '\0') {
         return;
     }
-    else {
-        keyPressed = TRUE;
-    }
 
-    // shell_handle_key(key);
+    keyPressed = TRUE;
 }
