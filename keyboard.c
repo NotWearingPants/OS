@@ -43,6 +43,17 @@ const uint8_t key_map[] = {
     '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
 };
 
+// volatile bool enterPressed = FALSE;
+volatile bool keyPressed = FALSE;
+uint8_t key;
+
+char get_char() {
+    while (keyPressed != TRUE);
+    keyPressed = FALSE;
+
+    return key;
+}
+
 void keyboard_handle_interrupt() {
     if (!IS_PREPARED_TO_READ()) {
         return;
@@ -50,10 +61,14 @@ void keyboard_handle_interrupt() {
 
     uint8_t data = READ_DATA();
 
-    uint8_t key = key_map[data];
+    key = key_map[data];
+
     if (key == '\0') {
         return;
     }
+    else {
+        keyPressed = TRUE;
+    }
 
-    shell_handle_key(key);
+    // shell_handle_key(key);
 }

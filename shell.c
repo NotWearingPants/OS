@@ -11,7 +11,7 @@
 volatile uint8_t pos_x = PROMPT_LENGTH;
 uint8_t pos_y = 0;
 
-volatile bool enterPressed = FALSE;
+// volatile bool enterPressed = FALSE;
 volatile char command[100];
 
 void update_cursor() {
@@ -48,50 +48,51 @@ void print_time(uint8_t x, uint8_t y, uint8_t color) {
 }
 
 void start_shell() {
+    char key;
     while (TRUE) {
         // print prompt
         print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
-        pos_x = PROMPT_LENGTH;
         update_cursor();
 
         // wait for interrupt of enter
         // TODO: while (!enterPressed); doesn't work
-        while (enterPressed != TRUE);
+        
+        key = get_char();
+        shell_handle_key(key);
 
-        enterPressed = FALSE;
-        pos_y++;
-
-        // if (command[0] == 't' && command[1] == 'i' && command[2] == 'm' && command[3] == 'e' && command[4] == '\0') {
-        if (string_compare((char*)command, "time")) {
-            print_time(0, pos_y, DEFAULT_COLOR);
-
+        if (key == '\n') {
             pos_y++;
-        } else if (string_compare((char*)command, "read")) {
-            print_string(0, pos_y, read_file("test.txt"), DEFAULT_COLOR);
 
-            pos_y++;
-        } else if (string_compare((char*)command, "write")) {
-            write_file("test.txt", "hello");
-        } else if (command[0] != '\0'){
-            print_string(0, pos_y, "'", DEFAULT_COLOR);
-            print_string(1, pos_y, (char*)command, DEFAULT_COLOR);
-            print_string(pos_x - (PROMPT_LENGTH - 1), pos_y, "' is not recognized as command", DEFAULT_COLOR);
+            if (string_compare((char*)command, "time")) {
+                print_time(0, pos_y, DEFAULT_COLOR);
 
-            pos_y++;
+                pos_y++;
+            } else if (string_compare((char*)command, "read")) {
+                print_string(0, pos_y, read_file("test.txt"), DEFAULT_COLOR);
+
+                pos_y++;
+            } else if (string_compare((char*)command, "write")) {
+                write_file("test.txt", "hello");
+            } else if (command[0] != '\0') {
+                print_string(0, pos_y, "'", DEFAULT_COLOR);
+                print_string(1, pos_y, (char*)command, DEFAULT_COLOR);
+                print_string(pos_x - (PROMPT_LENGTH - 1), pos_y, "' is not recognized as command", DEFAULT_COLOR);
+                pos_y++;
+            }
+
+            pos_x = PROMPT_LENGTH;
         }
     }
 }
 
 void shell_handle_key(uint8_t key) {
     // we can miss some keys :(
-    if (enterPressed) {
-        return;
-    }
+    // if (enterPressed) {
+    //     return;
+    // }
 
     if (key == '\n') {
         command[pos_x - PROMPT_LENGTH] = '\0';
-
-        enterPressed = TRUE;
     }
     else {
         print_char(0 + pos_x, 0 + pos_y, key, DEFAULT_COLOR);
