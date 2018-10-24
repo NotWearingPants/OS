@@ -48,35 +48,42 @@ void print_time(uint8_t x, uint8_t y, uint8_t color) {
 
 void start_shell() {
     while (TRUE) {
-        // print prompt
+        pos_x = PROMPT_LENGTH;
+
         print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
         update_cursor();
-
-        uint8_t key = get_char();
-        shell_handle_key(key);
-
-        if (key == '\n') {
-            pos_y++;
-
-            if (string_compare((char*)command, "time")) {
-                print_time(0, pos_y, DEFAULT_COLOR);
-
-                pos_y++;
-            } else if (string_compare((char*)command, "read")) {
-                print_string(0, pos_y, read_file("test.txt"), DEFAULT_COLOR);
-
-                pos_y++;
-            } else if (string_compare((char*)command, "write")) {
-                write_file("test.txt", "hello");
-            } else if (!string_is_empty((char*)command)) {
-                print_string(0, pos_y, "'", DEFAULT_COLOR);
-                print_string(1, pos_y, (char*)command, DEFAULT_COLOR);
-                print_string(pos_x - (PROMPT_LENGTH - 1), pos_y, "' is not recognized as command", DEFAULT_COLOR);
-                pos_y++;
+         
+        while(TRUE) {
+            uint8_t key = get_char();
+            shell_handle_key(key);
+            if (key == '\n') {
+                break;
             }
-
-            pos_x = PROMPT_LENGTH;
         }
+
+        pos_y++;
+
+        handle_command();
+
+    }
+}
+
+void handle_command() {
+    if (string_compare((char*)command, "time")) {
+        print_time(0, pos_y, DEFAULT_COLOR);
+
+        pos_y++;
+    } else if (string_compare((char*)command, "read")) {
+        print_string(0, pos_y, read_file("test.txt"), DEFAULT_COLOR);
+
+        pos_y++;
+    } else if (string_compare((char*)command, "write")) {
+        write_file("test.txt", "hello");
+    } else if (!string_is_empty((char*)command)) {
+        print_string(0, pos_y, "'", DEFAULT_COLOR);
+        print_string(1, pos_y, (char*)command, DEFAULT_COLOR);
+        print_string(pos_x - (PROMPT_LENGTH - 1), pos_y, "' is not recognized as command", DEFAULT_COLOR);
+        pos_y++;
     }
 }
 
