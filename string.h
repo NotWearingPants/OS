@@ -5,5 +5,6 @@
 
 bool string_compare(char* left, char* right);
 bool string_is_empty(char* command);
+void string_copy(char* destination, char* source);
 
 #endif

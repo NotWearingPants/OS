@@ -25,3 +25,12 @@ bool string_is_empty(char* command) {
 
     // return (command[0] == '\0');
 }
+
+void string_copy(char* destination, char* source) {
+    for (int i = 0; ; i++) {
+        destination[i] = source[i];
+        if (source[i] == '\0') {
+            break;
+        }
+    }
+}

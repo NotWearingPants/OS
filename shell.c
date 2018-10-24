@@ -12,6 +12,7 @@ uint8_t pos_x = PROMPT_LENGTH;
 uint8_t pos_y = 0;
 
 char command[100];
+char edit_file[100];
 
 void update_cursor() {
     move_cursor(pos_x, pos_y);
@@ -53,18 +54,22 @@ void start_shell() {
         print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
         update_cursor();
          
-        while(TRUE) {
-            uint8_t key = get_char();
-            shell_handle_key(key);
-            if (key == '\n') {
-                break;
-            }
-        }
+        read_from_keyboard();
 
         pos_y++;
 
         handle_command();
 
+    }
+}
+
+void read_from_keyboard() {
+    while(TRUE) {
+        uint8_t key = get_char();
+        shell_handle_key(key);
+        if (key == '\n') {
+            break;
+        }
     }
 }
 
@@ -78,7 +83,12 @@ void handle_command() {
 
         pos_y++;
     } else if (string_compare((char*)command, "write")) {
-        write_file("test.txt", "hello");
+        pos_x = 0;
+        update_cursor();
+        read_from_keyboard();
+        string_copy(edit_file, command);
+        write_file("test.txt", edit_file);
+        pos_y++;
     } else if (!string_is_empty((char*)command)) {
         print_string(0, pos_y, "'", DEFAULT_COLOR);
         print_string(1, pos_y, (char*)command, DEFAULT_COLOR);
