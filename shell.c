@@ -10,6 +10,7 @@
 
 uint8_t pos_x = PROMPT_LENGTH;
 uint8_t pos_y = 0;
+uint8_t length_command = 0;
 
 char command[100];
 char edit_file[100];
@@ -70,6 +71,9 @@ void read_from_keyboard() {
         if (key == '\n') {
             break;
         }
+        print_char(0 + pos_x, 0 + pos_y, key, DEFAULT_COLOR);
+        pos_x++;
+        update_cursor();
     }
 }
 
@@ -99,12 +103,14 @@ void handle_command() {
 
 void shell_handle_key(uint8_t key) {
     if (key == '\n') {
-        command[pos_x - PROMPT_LENGTH] = '\0';
+        command[length_command] = '\0';
+        length_command = 0;
     }
     else {
-        print_char(0 + pos_x, 0 + pos_y, key, DEFAULT_COLOR);
-        command[pos_x - PROMPT_LENGTH] = key;
-        pos_x++;
-        update_cursor();
+        // print_char(0 + pos_x, 0 + pos_y, key, DEFAULT_COLOR);
+        command[length_command] = key;
+        length_command++;
+        // pos_x++;
+        // update_cursor();
     }
 }
