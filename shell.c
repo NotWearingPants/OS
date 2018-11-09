@@ -10,8 +10,6 @@
 
 uint8_t pos_y = 0;
 
-char edit_file[100];
-
 void print_time(uint8_t x, uint8_t y, uint8_t color) {
     uint8_t seconds = read_from_cmos(CMOS_REG_SECONDS);
     uint8_t minutes = read_from_cmos(CMOS_REG_MINUTES);
@@ -62,12 +60,10 @@ void handle_command(char* command, uint8_t length_command) {
         pos_y++;
     } else if (string_compare(command, "read")) {
         print_string(0, pos_y, read_file("test.txt"), DEFAULT_COLOR);
-
         pos_y++;
     } else if (string_compare(command, "write")) {
         string_read(0, pos_y, command);
-        string_copy(edit_file, command);
-        write_file("test.txt", edit_file);
+        write_file("test.txt", command);
         pos_y++;
     } else if (!string_is_empty(command)) {
         print_string(0, pos_y, "'", DEFAULT_COLOR);
