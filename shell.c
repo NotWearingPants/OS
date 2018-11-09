@@ -9,9 +9,7 @@
 #define PROMPT_LENGTH (sizeof(PROMPT) - 1)
 
 uint8_t pos_y = 0;
-uint8_t length_command = 0;
 
-char command[100];
 char edit_file[100];
 
 void print_time(uint8_t x, uint8_t y, uint8_t color) {
@@ -44,38 +42,36 @@ void print_time(uint8_t x, uint8_t y, uint8_t color) {
 }
 
 void start_shell() {
+
     while (TRUE) {
-
         print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
-        move_cursor(PROMPT_LENGTH, pos_y);    
 
-        length_command = string_read(PROMPT_LENGTH, pos_y, command);
+        char command[100];
+        uint8_t length_command = string_read(PROMPT_LENGTH, pos_y, command);
 
         pos_y++;
 
-        handle_command();
-
+        handle_command(command, length_command);
     }
 }
 
-void handle_command() {
-    if (string_compare((char*)command, "time")) {
+void handle_command(char* command, uint8_t length_command) {
+    if (string_compare(command, "time")) {
         print_time(0, pos_y, DEFAULT_COLOR);
 
         pos_y++;
-    } else if (string_compare((char*)command, "read")) {
+    } else if (string_compare(command, "read")) {
         print_string(0, pos_y, read_file("test.txt"), DEFAULT_COLOR);
 
         pos_y++;
-    } else if (string_compare((char*)command, "write")) {
-        move_cursor(0, pos_y);
+    } else if (string_compare(command, "write")) {
         string_read(0, pos_y, command);
         string_copy(edit_file, command);
         write_file("test.txt", edit_file);
         pos_y++;
-    } else if (!string_is_empty((char*)command)) {
+    } else if (!string_is_empty(command)) {
         print_string(0, pos_y, "'", DEFAULT_COLOR);
-        print_string(1, pos_y, (char*)command, DEFAULT_COLOR);
+        print_string(1, pos_y, command, DEFAULT_COLOR);
         print_string(length_command + 1, pos_y, "' is not recognized as command", DEFAULT_COLOR);
         pos_y++;
     }

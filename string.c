@@ -3,7 +3,6 @@
 #include "screen.h"
 #include "common.h"
 
-
 bool string_compare(char* left, char* right) {
     int i = 0;
     while (left[i] != '\0') {
@@ -38,22 +37,20 @@ void string_copy(char* destination, char* source) {
 }
 
 uint8_t string_read(uint8_t pos_x, uint8_t pos_y, char* buffer) {
-    char key;
-    uint8_t length_command = 0;
+    uint8_t length_command;
 
-    while (TRUE) {
-        key = get_char();
-        buffer[length_command] = key;
+    for (length_command = 0; ; length_command++) {
+        move_cursor(pos_x + length_command, pos_y);
+        char key = get_char();
 
         if (key == '\n') {
-            buffer[length_command] = '\0';
-            return length_command;
+            break;
         }
-        print_char(length_command + pos_x, pos_y, key, DEFAULT_COLOR);
-        length_command++;
-        move_cursor(length_command + pos_x, pos_y);
 
+        buffer[length_command] = key;
+        print_char(pos_x + length_command, pos_y, key, DEFAULT_COLOR);
     }
 
-    return 0;
+    buffer[length_command] = '\0';
+    return length_command;
 }
