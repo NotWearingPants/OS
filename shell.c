@@ -8,16 +8,11 @@
 #define PROMPT ">>"
 #define PROMPT_LENGTH (sizeof(PROMPT) - 1)
 
-uint8_t pos_x = PROMPT_LENGTH;
 uint8_t pos_y = 0;
 uint8_t length_command = 0;
 
 char command[100];
 char edit_file[100];
-
-void update_cursor() {
-    move_cursor(pos_x, pos_y);
-}
 
 void print_time(uint8_t x, uint8_t y, uint8_t color) {
     uint8_t seconds = read_from_cmos(CMOS_REG_SECONDS);
@@ -50,30 +45,16 @@ void print_time(uint8_t x, uint8_t y, uint8_t color) {
 
 void start_shell() {
     while (TRUE) {
-        pos_x = PROMPT_LENGTH;
 
         print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
-        update_cursor();
-         
-        read_from_keyboard();
+        move_cursor(PROMPT_LENGTH, pos_y);    
+
+        length_command = string_read(PROMPT_LENGTH, pos_y, command);
 
         pos_y++;
 
         handle_command();
 
-    }
-}
-
-void read_from_keyboard() {
-    while(TRUE) {
-        uint8_t key = get_char();
-        shell_handle_key(key);
-        if (key == '\n') {
-            break;
-        }
-        print_char(0 + pos_x, 0 + pos_y, key, DEFAULT_COLOR);
-        pos_x++;
-        update_cursor();
     }
 }
 
@@ -87,30 +68,15 @@ void handle_command() {
 
         pos_y++;
     } else if (string_compare((char*)command, "write")) {
-        pos_x = 0;
-        update_cursor();
-        read_from_keyboard();
+        move_cursor(0, pos_y);
+        string_read(0, pos_y, command);
         string_copy(edit_file, command);
         write_file("test.txt", edit_file);
         pos_y++;
     } else if (!string_is_empty((char*)command)) {
         print_string(0, pos_y, "'", DEFAULT_COLOR);
         print_string(1, pos_y, (char*)command, DEFAULT_COLOR);
-        print_string(pos_x - (PROMPT_LENGTH - 1), pos_y, "' is not recognized as command", DEFAULT_COLOR);
+        print_string(length_command + 1, pos_y, "' is not recognized as command", DEFAULT_COLOR);
         pos_y++;
-    }
-}
-
-void shell_handle_key(uint8_t key) {
-    if (key == '\n') {
-        command[length_command] = '\0';
-        length_command = 0;
-    }
-    else {
-        // print_char(0 + pos_x, 0 + pos_y, key, DEFAULT_COLOR);
-        command[length_command] = key;
-        length_command++;
-        // pos_x++;
-        // update_cursor();
     }
 }
