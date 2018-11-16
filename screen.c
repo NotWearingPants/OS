@@ -8,10 +8,12 @@ void print_char(uint8_t x, uint8_t y, uint8_t character, uint8_t color) {
     SCREEN_ADDRESS[2 * pos + 1] = color;
 }
 
-void print_string(uint8_t x, uint8_t y, char *string, uint8_t color) {
-    for (int i = 0; string[i] != '\0'; i++) {
+uint8_t print_string(uint8_t x, uint8_t y, char *string, uint8_t color) {
+    int i;
+    for (i = 0; string[i] != '\0'; i++) {
         print_char(x + i, y, (uint8_t)string[i], color);
     }
+    return i;
 }
 
 void print_number(uint8_t x, uint8_t y, uint32_t num, uint8_t color) {
