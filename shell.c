@@ -54,7 +54,15 @@ void start_shell() {
 }
 
 void handle_command(char* command, uint8_t length_command) {
-    if (string_compare(command, "time")) {
+    //check_write_syntax(command);
+    char arg[100];
+    arg[0] = '\0';
+    string_split(command, arg);
+    print_string(50, pos_y - 1, command, DEFAULT_COLOR);
+    print_string(60, pos_y - 1, arg, DEFAULT_COLOR);
+
+
+    if (string_compare(command, "time") && arg[0] == '\0') {
         print_time(0, pos_y, DEFAULT_COLOR);
 
         pos_y++;
@@ -71,4 +79,23 @@ void handle_command(char* command, uint8_t length_command) {
         print_string(length_command + 1, pos_y, "' is not recognized as command", DEFAULT_COLOR);
         pos_y++;
     }
+}
+
+bool check_write_syntax(char* command) {
+    char arr[] = "write ";
+    int size = string_size(arr);
+    for (int i = 0; i < size; i++) {
+        if (command[i] != arr[i]) {
+            return 0;
+        }
+    }
+
+    char name[100];
+    for (int i = 0; command[size + i] != '\0'; i++) {
+        name[i] = command[size + i];
+    }
+
+    print_string(10, 10, name, DEFAULT_COLOR);
+
+    return 1;
 }

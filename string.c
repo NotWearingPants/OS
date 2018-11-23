@@ -54,3 +54,44 @@ uint8_t string_read(uint8_t pos_x, uint8_t pos_y, char* buffer) {
     buffer[length_command] = '\0';
     return length_command;
 }
+
+uint8_t string_size(char* string) {
+    uint8_t count = 0;
+
+    while (TRUE) {
+        if (string[count] == '\0') {
+            return count;
+        }
+        count++;
+    }
+}
+
+void string_split(char* commend, char* arg) {
+    char arr[100];
+    string_copy(arr, commend);
+    
+    int i = 0;
+    for ( ; arr[i] != '|' ; i++) {
+        commend[i] = arr[i];
+    }
+    commend[i] = '\0';
+
+    int j = 0;
+    for ( ; arr[i] != '\0'; i++, j++) {
+        arg[j] = arr[i];
+    }
+    arg[j] = '\0';
+
+}
+
+void string_append(char* destination, char* source) {
+    // print_number(10, 15, string_size(destination), DEFAULT_COLOR);
+    /*
+    for (int i = 0; ; i++) {
+        destination[string_size(destination) + 1 + i] = source[i];
+
+        if (source[i] == '\0') {
+            break;
+        }
+    }*/
+}
