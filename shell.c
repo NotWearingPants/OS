@@ -56,7 +56,6 @@ void start_shell() {
 void handle_command(char* command, uint8_t length_command) {
     //check_write_syntax(command);
     char arg[100];
-    arg[0] = '\0';
     string_split(command, arg);
     print_string(50, pos_y - 1, command, DEFAULT_COLOR);
     print_string(60, pos_y - 1, arg, DEFAULT_COLOR);

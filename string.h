@@ -10,5 +10,6 @@ uint8_t string_read(uint8_t pos_x, uint8_t pos_y, char* buffer);
 uint8_t string_size(char* string);
 void string_append(char* destination, char* source);
 void string_split(char* commend, char* arg);
+bool string_fall_space(char* string);
 
 #endif
