@@ -54,14 +54,14 @@ void start_shell() {
 }
 
 void handle_command(char* command, uint8_t length_command) {
-    //check_write_syntax(command);
     char arg[100];
-    string_split(command, arg);
+    char* arr[2] = { command, arg };
+    string_split(command, ' ', arr, 2);
     print_string(50, pos_y - 1, command, DEFAULT_COLOR);
     print_string(60, pos_y - 1, arg, DEFAULT_COLOR);
 
 
-    if (string_compare(command, "time") && arg[0] == '\0') {
+    if (string_compare(command, "time") && string_is_empty(arg)) {
         print_time(0, pos_y, DEFAULT_COLOR);
 
         pos_y++;

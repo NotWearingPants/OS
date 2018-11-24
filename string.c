@@ -76,47 +76,45 @@ bool string_fall_space(char* string) {
     return 1;
 }
 
-// The first space is not considered the rest into the arg (fix!)
-void string_split(char* string, char* arg) {
-/*    char arr[100];
-    string_copy(arr, string);
+int string_split(char* string, char delimeter, char* arr[], int size) {
+    int count = 0;
+    for (int i = 0, pos = 0; string[i] != '\0'; i++, pos++) {
+        if (string[i] == delimeter) {
+            arr[count][pos] = '\0';
+            count++;
+            if (count == size) {
+                break;
+            }
+            pos = 0;
+            i++;
+        }
+        arr[count][pos] = string[i];
+    }
+
+    return count;
+
+
+    // char arr[100];
+    // string_copy(arr, string);
     
-    // first word
-    int i = 0;
-    for ( ; arr[i] != ' ' ; i++) {
-        string[i] = arr[i];
-    }
-    string[i] = '\0';
-    i++; // the space
+    // // first word
+    // int first_word_size = 0;
+    // while (string[first_word_size] != ' ') {
+    //     first_word_size++;
+    // }
+    // string[first_word_size] = '\0';
 
-    // arg
-    int j = 0;
-    for ( ; arr[i] != '\0'; i++, j++) {
-        arg[j] = arr[i];
-    }
-    arg[j] = '\0';
-*/
-    char arr[100];
-    string_copy(arr, string);
-    
-    // first word
-    int i = 0;
-    for ( ; arr[i] != ' ' ; i++) {
-        string[i] = arr[i];
-    }
-    string[i] = '\0';
+    // // arg
+    // int arg_size = 0;
+    // for ( ; arr[first_word_size] != '\0'; first_word_size++, arg_size++) {
+    //     arg[arg_size] = arr[first_word_size];
+    // }
 
-    // arg
-    int j = 0;
-    for ( ; arr[i] != '\0'; i++, j++) {
-        arg[j] = arr[i];
-    }
+    // if (string_fall_space(arg)) {
+    //     arg_size = 0;
+    // }
 
-    if (string_fall_space(arg)) {
-        j = 0;
-    }
-
-    arg[j] = '\0';
+    // arg[arg_size] = '\0';
 }
 
 void string_append(char* arr1, char* arr2) {
