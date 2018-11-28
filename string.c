@@ -37,22 +37,56 @@ void string_copy(char* destination, char* source) {
 }
 
 uint8_t string_read(uint8_t pos_x, uint8_t pos_y, char* buffer) {
-    uint8_t length_command;
+    #define DELETE      127
+    uint8_t length_command = 0;
 
-    for (length_command = 0; ; length_command++) {
+    char key = ' ';
+    while (TRUE) {
         move_cursor(pos_x + length_command, pos_y);
-        char key = get_char();
+        key = get_char();
 
         if (key == '\n') {
             break;
         }
 
-        buffer[length_command] = key;
-        print_char(pos_x + length_command, pos_y, key, DEFAULT_COLOR);
-    }
+        // not the best code :( bat work.
+        if (key == DELETE) {
+            if (length_command > 0) {
+                length_command--;
+                print_char(pos_x + length_command, pos_y, ' ', DEFAULT_COLOR);
+                buffer[length_command] = ' ';
+            }
+        }
+        else {
+            buffer[length_command] = key;
+            print_char(pos_x + length_command, pos_y, key, DEFAULT_COLOR);
+            length_command++;
+        }
 
+    }
+    
     buffer[length_command] = '\0';
     return length_command;
+
+    // for (length_command = 0; ; length_command++) {
+    //     move_cursor(pos_x + length_command, pos_y);
+    //     char key = get_char();
+
+    //     if (key == '\n') {
+    //         break;
+    //     }
+
+    //     if (key == DELETE && length_command > 0) {
+    //         length_command--;
+    //         key = ' ';
+    //     }
+
+    //     buffer[length_command] = key;
+    //     print_char(pos_x + length_command, pos_y, key, DEFAULT_COLOR);
+    // }
+
+    // buffer[length_command] = '\0';
+    // return length_command;
 }
 
 uint8_t string_size(char* string) {
