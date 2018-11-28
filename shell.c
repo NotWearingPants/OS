@@ -54,14 +54,13 @@ void start_shell() {
 }
 
 void handle_command(char* command, uint8_t length_command) {
-    char arg[100];
-    char* arr[2] = { command, arg };
-    string_split(command, ' ', arr, 2);
+    // char arg[100] = "";
+    int x = string_split(command, ' ');
+    print_number(48, pos_y - 1, x, DEFAULT_COLOR);
     print_string(50, pos_y - 1, command, DEFAULT_COLOR);
-    print_string(60, pos_y - 1, arg, DEFAULT_COLOR);
 
 
-    if (string_compare(command, "time") && string_is_empty(arg)) {
+    if (string_compare(command, "time")) {
         print_time(0, pos_y, DEFAULT_COLOR);
 
         pos_y++;
@@ -76,6 +75,7 @@ void handle_command(char* command, uint8_t length_command) {
         print_string(0, pos_y, "'", DEFAULT_COLOR);
         print_string(1, pos_y, command, DEFAULT_COLOR);
         print_string(length_command + 1, pos_y, "' is not recognized as command", DEFAULT_COLOR);
+        // print_string(string_size(command) + 1, pos_y, "' is not recognized as command", DEFAULT_COLOR);
         pos_y++;
     }
 }

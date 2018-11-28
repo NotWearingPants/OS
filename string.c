@@ -76,45 +76,37 @@ bool string_fall_space(char* string) {
     return 1;
 }
 
-int string_split(char* string, char delimeter, char* arr[], int size) {
-    int count = 0;
-    for (int i = 0, pos = 0; string[i] != '\0'; i++, pos++) {
+// instead of copying the characters, change string in place (replace delimeter with '\0' like old code)
+// int string_split(char* string, char delimeter, char* arr[], int size) {
+int string_split(char* string, char delimeter) {
+
+    int count_words = 1;
+    for (int i = 0; string[i] != '\0' ; i++) {
         if (string[i] == delimeter) {
-            arr[count][pos] = '\0';
-            count++;
-            if (count == size) {
-                break;
-            }
-            pos = 0;
-            i++;
+            string[i] = '\0';
+            count_words++;
         }
-        arr[count][pos] = string[i];
     }
 
-    return count;
+    return count_words;
 
 
-    // char arr[100];
-    // string_copy(arr, string);
-    
-    // // first word
-    // int first_word_size = 0;
-    // while (string[first_word_size] != ' ') {
-    //     first_word_size++;
-    // }
-    // string[first_word_size] = '\0';
 
-    // // arg
-    // int arg_size = 0;
-    // for ( ; arr[first_word_size] != '\0'; first_word_size++, arg_size++) {
-    //     arg[arg_size] = arr[first_word_size];
-    // }
-
-    // if (string_fall_space(arg)) {
-    //     arg_size = 0;
+    // int count = 0;
+    // for (int i = 0, pos = 0; string[i] != '\0'; i++, pos++) {
+    //     if (string[i] == delimeter) {
+    //         arr[count][pos] = '\0';
+    //         count++;
+    //         if (count == size) {
+    //             break;
+    //         }
+    //         pos = 0;
+    //         i++;
+    //     }
+    //     arr[count][pos] = string[i];
     // }
 
-    // arg[arg_size] = '\0';
+    // return count;
 }
 
 void string_append(char* arr1, char* arr2) {
