@@ -114,15 +114,15 @@ bool string_fall_space(char* string) {
 // int string_split(char* string, char delimeter, char* arr[], int size) {
 int string_split(char* string, char delimeter) {
 
-    int count_words = 1;
+    int count = 1;
     for (int i = 0; string[i] != '\0' ; i++) {
         if (string[i] == delimeter) {
             string[i] = '\0';
-            count_words++;
+            count++;
         }
     }
 
-    return count_words;
+    return count;
 
 
 
