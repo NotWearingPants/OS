@@ -10,6 +10,21 @@
 
 uint8_t pos_y = 0;
 
+
+void start_shell() {
+
+    while (TRUE) {
+        print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
+
+        char command[100];
+        uint8_t length_command = string_read(PROMPT_LENGTH, pos_y, command);
+
+        pos_y++;
+
+        handle_command(command, length_command);
+    }
+}
+
 void print_time(uint8_t x, uint8_t y, uint8_t color) {
     uint8_t seconds = read_from_cmos(CMOS_REG_SECONDS);
     uint8_t minutes = read_from_cmos(CMOS_REG_MINUTES);
@@ -37,20 +52,6 @@ void print_time(uint8_t x, uint8_t y, uint8_t color) {
 
     print_char(x + 16, y, (year   / 0x10) + '0', color);
     print_char(x + 17, y, (year   % 0x10) + '0', color);
-}
-
-void start_shell() {
-
-    while (TRUE) {
-        print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
-
-        char command[100];
-        uint8_t length_command = string_read(PROMPT_LENGTH, pos_y, command);
-
-        pos_y++;
-
-        handle_command(command, length_command);
-    }
 }
 
 void handle_command(char* command, uint8_t length_command) {
