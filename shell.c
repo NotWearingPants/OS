@@ -54,29 +54,29 @@ void start_shell() {
 }
 
 void handle_command(char* command, uint8_t length_command) {
-    // char arg[100] = "";
-    int x = string_split(command, ' ');
-    print_number(48, pos_y - 1, x, DEFAULT_COLOR);
-    print_string(50, pos_y - 1, command, DEFAULT_COLOR);
-
+    int* argv = string_split(command, ' ');
+    print_string(48, pos_y - 1, ixtract_argv(command, argv, 1), DEFAULT_COLOR);
+    // print_string(50, pos_y - 1, command, DEFAULT_COLOR);
 
     if (string_compare(command, "time")) {
         print_time(0, pos_y, DEFAULT_COLOR);
-
         pos_y++;
+
     } else if (string_compare(command, "read")) {
         print_string(0, pos_y, read_file("test.txt"), DEFAULT_COLOR);
         pos_y++;
+
     } else if (string_compare(command, "write")) {
-        string_read(0, pos_y, command);
-        write_file("test.txt", command);
+        // write_file(0, pos_y, command, argv);
         pos_y++;
+
     } else if (!string_is_empty(command)) {
         print_string(0, pos_y, "'", DEFAULT_COLOR);
         print_string(1, pos_y, command, DEFAULT_COLOR);
         print_string(length_command + 1, pos_y, "' is not recognized as command", DEFAULT_COLOR);
         // print_string(string_size(command) + 1, pos_y, "' is not recognized as command", DEFAULT_COLOR);
         pos_y++;
+        
     }
 }
 
@@ -97,4 +97,14 @@ bool check_write_syntax(char* command) {
     print_string(10, 10, name, DEFAULT_COLOR);
 
     return 1;
+}
+
+char* ixtract_argv(char* string, int* arr, int argv_num) {
+    static char argv[50] = { '\0' };
+    int i = 0;
+    for ( ; string[arr[argv_num + i]] != '\0'; i++) {
+        argv[i] = string[arr[argv_num] + i];
+    }
+    argv[i] = '\0';
+    return argv;
 }
