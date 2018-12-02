@@ -54,32 +54,24 @@ void print_time(uint8_t x, uint8_t y, uint8_t color) {
 }
 
 void handle_command(char* command, uint8_t length_command) {
-    char** arr_pos_argv = string_split(command, ' ');
-    // print_string(48, pos_y - 1, extract_argv(command, arr_pos_argv, 1), DEFAULT_COLOR);
+    char* arr_pos_argv[50];
+    string_split(command, ' ', arr_pos_argv);
+
+    // if (*(arr_pos_argv[1]) == '\0') {
+    // }
+    
     print_string(50, pos_y - 1, arr_pos_argv[0], DEFAULT_COLOR);
+
 
     if (string_compare(command, "time")) {
         print_time(0, pos_y, DEFAULT_COLOR);
         pos_y++;
 
     } else if (string_compare(command, "read")) {
-    //     if (arr_pos_argv[0] == 2) {
-    //         // print_string(0, pos_y, read_file(extract_argv(command, arr_pos_argv, 1)), DEFAULT_COLOR);
-    //     }
-    //     pos_y++;
+        pos_y++;
 
-    // } else if (string_compare(command, "write")) {
-    //     if (arr_pos_argv[0] == 2) {
-    //         // write_file(0, pos_y, extract_argv(command, arr_pos_argv, 1));
-    //     }
-    //     else if (arr_pos_argv[0] > 2) {
-    //         print_string(0, pos_y, "too many arguments", DEFAULT_COLOR);
-    //     }
-    //     else {
-    //         print_string(0, pos_y, "missing file operand", DEFAULT_COLOR);
-    //     }
-        // chaing it!
-        pos_y += 2;
+    } else if (string_compare(command, "write")) {
+        pos_y++;
 
     } else if (!string_is_empty(command)) {
         print_string(0, pos_y, "'", DEFAULT_COLOR);
@@ -108,14 +100,4 @@ bool check_write_syntax(char* command) {
     print_string(10, 10, name, DEFAULT_COLOR);
 
     return 1;
-}
-
-char* extract_argv(char* string, int* arr, int argv_num) {
-    static char argv[50] = { '\0' };
-    int i = 0;
-    for ( ; string[arr[argv_num + i]] != '\0'; i++) {
-        argv[i] = string[arr[argv_num] + i];
-    }
-    argv[i] = '\0';
-    return argv;
 }
