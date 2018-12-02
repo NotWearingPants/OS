@@ -110,20 +110,19 @@ bool string_fall_space(char* string) {
     return 1;
 }
 
-// count tell my how many argv there have too (in the fucher)
-char** string_split(char* string, char delimeter) {
-    static char* arr[50];
+void string_split(char* string, char delimeter, char** arr) {
+    // static char q = '\0';
 
-    int count = 1;
+    int count = 0;
     for (int i = 0; string[i] != '\0' ; i++) {
         if (string[i] == delimeter) {
             string[i] = '\0';
-            arr[count - 1] = &string[i + 1]; 
+            arr[count] = &string[i + 1]; 
             count++;
         }
     }
 
-    return arr;
+    // arr[count] = &q;
 }
 
 void string_append(char* arr1, char* arr2) {
