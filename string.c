@@ -112,20 +112,33 @@ bool string_fall_space(char* string) {
 
 // instead of copying the characters, change string in place (replace delimeter with '\0' like old code)
 // int string_split(char* string, char delimeter, char* arr[], int size) {
-int* string_split(char* string, char delimeter) {
-    static int arr[50];
+char* string_split(char* string, char delimeter) {
+    static char* arr[50];
+
     int count = 1;
     for (int i = 0; string[i] != '\0' ; i++) {
         if (string[i] == delimeter) {
             string[i] = '\0';
-            arr[count] = i + 1; 
+            arr[count - 1] = &string[i + 1]; 
             count++;
         }
     }
 
-    arr[0] = count;
-    arr[count + 1] = 0;
     return arr;
+
+    // static int arr[50];
+    // int count = 1;
+    // for (int i = 0; string[i] != '\0' ; i++) {
+    //     if (string[i] == delimeter) {
+    //         string[i] = '\0';
+    //         arr[count] = i + 1; 
+    //         count++;
+    //     }
+    // }
+
+    // arr[0] = count;
+    // arr[count + 1] = 0;
+    // return arr;
 }
 
 void string_append(char* arr1, char* arr2) {
