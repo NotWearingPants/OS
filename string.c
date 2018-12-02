@@ -111,7 +111,7 @@ bool string_fall_space(char* string) {
 }
 
 void string_split(char* string, char delimeter, char** arr) {
-    // static char q = '\0';
+    static char q = '\0';
 
     int count = 0;
     for (int i = 0; string[i] != '\0' ; i++) {
@@ -122,7 +122,7 @@ void string_split(char* string, char delimeter, char** arr) {
         }
     }
 
-    // arr[count] = &q;
+    arr[count] = &q;
 }
 
 void string_append(char* arr1, char* arr2) {
