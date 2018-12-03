@@ -61,7 +61,7 @@ void handle_command(char* command, uint8_t length_command) {
     // }
     
     print_string(50, pos_y - 1, arr_pos_argv[0], DEFAULT_COLOR);
-
+    print_number(55, pos_y - 1, how_many_argv(arr_pos_argv), DEFAULT_COLOR);
 
     if (string_compare(command, "time")) {
         print_time(0, pos_y, DEFAULT_COLOR);
@@ -100,4 +100,11 @@ bool check_write_syntax(char* command) {
     print_string(10, 10, name, DEFAULT_COLOR);
 
     return 1;
+}
+
+int how_many_argv(char** argv) {
+    int i = 0;
+    for (; *(argv[i]) != '\0'; i++);
+
+    return i;
 }
