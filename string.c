@@ -114,14 +114,19 @@ void string_split(char* string, char delimeter, char** arr) {
     static char q = '\0';
 
     int count = 0;
-    for (int i = 0; string[i] != '\0'; i++) {
-        if (string[i] == delimeter && string[i - 1] != delimeter) {
+    int i = 0;
+    for (; string[i] == delimeter; i++);
+    arr[count] = &string[i];
+    count++;
+
+    for (; string[i] != '\0'; i++) {
+        if (string[i] == delimeter) {
             string[i] = '\0';
             
-            int j = i + 1;
-            for (; string[j] == delimeter; j++);
-            arr[count] = &string[j];
-            count++;
+            if (string[i + 1] != delimeter) {
+                arr[count] = &string[i + 1];
+                count++;
+            }
         }
     }
 
