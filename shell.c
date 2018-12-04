@@ -56,18 +56,17 @@ void print_time(uint8_t x, uint8_t y, uint8_t color) {
 void handle_command(char* command, uint8_t length_command) {
     char* arr_pos_argv[50];
     string_split(command, ' ', arr_pos_argv);
+    int count_argv = how_many_argv(arr_pos_argv);
 
-    // if (*(arr_pos_argv[1]) == '\0') {
-    // }
-    
     print_string(50, pos_y - 1, arr_pos_argv[0], DEFAULT_COLOR);
-    print_number(55, pos_y - 1, how_many_argv(arr_pos_argv), DEFAULT_COLOR);
+    print_number(55, pos_y - 1, count_argv, DEFAULT_COLOR);
 
     if (string_compare(command, "time")) {
         print_time(0, pos_y, DEFAULT_COLOR);
         pos_y++;
 
     } else if (string_compare(command, "read")) {
+        print_string(0, pos_y, read_file("name"), DEFAULT_COLOR);
         pos_y++;
 
     } else if (string_compare(command, "write")) {
