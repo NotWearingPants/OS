@@ -55,8 +55,8 @@ void print_time(uint8_t x, uint8_t y, uint8_t color) {
 
 void handle_command(char* command, uint8_t length_command) {
     char* arr_pos_argv[50];
+    int count_argv = how_many_words(command);
     string_split(command, ' ', arr_pos_argv);
-    int count_argv = how_many_argv(arr_pos_argv);
 
     print_string(50, pos_y - 1, arr_pos_argv[0], DEFAULT_COLOR);
     print_number(55, pos_y - 1, count_argv, DEFAULT_COLOR);
@@ -101,9 +101,19 @@ bool check_write_syntax(char* command) {
     return 1;
 }
 
-int how_many_argv(char** argv) {
-    int i = 0;
-    for (; *(argv[i]) != '\0'; i++);
+int how_many_words(char* str) {
+    bool flag = 1;
+    int count = 0;
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (flag == 1 && str[i] != ' ') {
+            count++;
+            flag = 0;
+        }
 
-    return i - 1;
+        if (str[i] == ' ') {
+            flag = 1;
+        }
+    }
+
+    return count;
 }
