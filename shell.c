@@ -105,5 +105,5 @@ int how_many_argv(char** argv) {
     int i = 0;
     for (; *(argv[i]) != '\0'; i++);
 
-    return i;
+    return i - 1;
 }
