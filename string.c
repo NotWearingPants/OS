@@ -133,19 +133,13 @@ void string_split(char* string, char delimeter, char** arr) {
     arr[count] = &q;
 }
 
-void string_append(char* arr1, char* arr2) {
-    // print_number(10, 15, string_size(destination), DEFAULT_COLOR);
-    //char new_arr[100];
-    
-    
-    /*
-    for (int i = 0; ; i++) {
-        if (arr1[i] != '\0') {
-            new_arr[i] = arr1[i];
-        }
-        else if (arr2[i] != '\0') {
-            new_arr[i] = arr2[i];
-        }
+void string_combination(char* arr1, char* arr2, char* buffer) {
+    int i = 0;
+    for (; arr1[i] != '\0'; i++) {
+        buffer[i] = arr1[i];
     }
-    */
+    for (int j = 0; arr2[j] != '\0'; i++, j++) {
+        buffer[i] = arr2[j];
+    }
+    
 }
