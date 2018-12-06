@@ -70,6 +70,12 @@ void handle_command(char* command, uint8_t length_command) {
         pos_y++;
 
     } else if (string_compare(command, "write")) {
+        if (count_argv == 1) {
+            handel_write_commend(arr_pos_argv);
+        }
+        else {
+            print_string(0, pos_y, "Usage: wire file_name", DEFAULT_COLOR);
+        }
         pos_y++;
 
     } else if (!string_is_empty(command)) {
@@ -116,4 +122,11 @@ int how_many_words(char* str) {
     }
 
     return count;
+}
+
+void handel_write_commend(char** str) {
+    char data[255];
+    string_read(0, pos_y, data);
+
+    write_file(str[1], data);
 }
