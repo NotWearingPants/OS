@@ -111,26 +111,22 @@ bool string_fall_space(char* string) {
 }
 
 void string_split(char* string, char delimeter, char** arr) {
-    static char q = '\0';
-
-    int count = 0;
+    int parts_count = 0;
     int i = 0;
     for (; string[i] == delimeter; i++);
-    arr[count] = &string[i];
-    count++;
+    arr[parts_count] = &string[i];
+    parts_count++;
 
     for (; string[i] != '\0'; i++) {
         if (string[i] == delimeter) {
             string[i] = '\0';
             
             if (string[i + 1] != delimeter) {
-                arr[count] = &string[i + 1];
-                count++;
+                arr[parts_count] = &string[i + 1];
+                parts_count++;
             }
         }
     }
-
-    arr[count] = &q;
 }
 
 void string_append(char* arr1, char* arr2) {

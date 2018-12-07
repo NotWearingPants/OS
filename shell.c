@@ -102,16 +102,16 @@ bool check_write_syntax(char* command) {
 }
 
 int how_many_words(char* str) {
-    bool flag = 1;
+    uint8_t new_word = 1;
     int count = 0;
     for (int i = 0; str[i] != '\0'; i++) {
-        if (flag == 1 && str[i] != ' ') {
+        if (new_word == 1 && str[i] != ' ') {
             count++;
-            flag = 0;
+            new_word = 0;
         }
 
         if (str[i] == ' ') {
-            flag = 1;
+            new_word = 1;
         }
     }
 
