@@ -3,6 +3,9 @@
 
 char the_only_file[255];
 char* poiters[255];
+int count_files = 0;
+
+// fix the size of the memory in thr fucher
 
 void add_data(char* str) {
     static int pos = 0;
@@ -18,25 +21,18 @@ void add_data(char* str) {
 }
 
 char* read_file(char* filename) {
-    char* error = "error";
-    if (string_compare(filename, poiters[0])) {
-        return poiters[1];
+    char* error = "the file does not exist";
+    for (int i = 0; i < count_files * 2; i += 2) {
+        if (string_compare(filename, poiters[i])) {
+            return poiters[i + 1];
+        }
     }
-    else {
-        return error;
-    }
+    
+    return error;
 }
 
 void write_file(char* filename, char* contents) {
-    // char name[50];
-    // int size = string_size(filename);
-    // string_copy(name, filename);
-
-    // name[size + 0] = ' ';
-    // name[size + 1] = '\0';
-
-    // string_combination(filename, contents, the_only_file);
-
+    count_files++;
     add_data(filename);
     add_data(contents);
 }
