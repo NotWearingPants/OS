@@ -20,7 +20,9 @@ void start_shell() {
 
         pos_y++;
 
-        handle_command(command, length_command);
+        if (string_is_empty(command) == FALSE) {
+            handle_command(command, length_command);
+        }
     }
 }
 
@@ -91,26 +93,6 @@ void handle_command(char* command, uint8_t length_command) {
         pos_y++;
 
     }
-}
-
-// wate for snir to delet this func
-bool check_write_syntax(char* command) {
-    char arr[] = "write ";
-    int size = string_size(arr);
-    for (int i = 0; i < size; i++) {
-        if (command[i] != arr[i]) {
-            return 0;
-        }
-    }
-
-    char name[100];
-    for (int i = 0; command[size + i] != '\0'; i++) {
-        name[i] = command[size + i];
-    }
-
-    print_string(10, 10, name, DEFAULT_COLOR);
-
-    return 1;
 }
 
 int how_many_words(char* str) {
