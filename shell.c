@@ -20,7 +20,9 @@ void start_shell() {
 
         pos_y++;
 
-        handle_command(command, length_command);
+        if (string_is_empty(command) == FALSE) {
+            handle_command(command, length_command);
+        }
     }
 }
 
@@ -58,8 +60,10 @@ void handle_command(char* command, uint8_t length_command) {
     int count_argv = how_many_words(command) - 1;
     string_split(command, ' ', arr_pos_argv);
 
-    print_string(50, pos_y - 1, arr_pos_argv[1], DEFAULT_COLOR);
-    print_number(55, pos_y - 1, count_argv, DEFAULT_COLOR);
+    if (count_argv > 0) {
+        print_string(50, pos_y - 1, arr_pos_argv[1], DEFAULT_COLOR);
+    }
+    print_number(60, pos_y - 1, count_argv, DEFAULT_COLOR);
 
     if (string_compare(command, "time")) {
         print_time(0, pos_y, DEFAULT_COLOR);
