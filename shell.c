@@ -60,16 +60,8 @@ void handle_command(char* command, uint8_t length_command) {
     int count_argv = how_many_words(command) - 1;
     string_split(command, ' ', arr_pos_arg);
 
-    // print_string(50, pos_y - 1, arr_pos_arg[1], DEFAULT_COLOR);
-    // print_number(55, pos_y - 1, count_argv, DEFAULT_COLOR);
-    print_string(50, pos_y - 1, command, DEFAULT_COLOR);
-    int x1 = string_size(command);
-    print_string(50 + x1, pos_y - 1, " ", DEFAULT_COLOR);
-    int x2 = x1 + 1;
-    print_string(50 + x2, pos_y - 1, arr_pos_arg[1], DEFAULT_COLOR);
-
-
-
+    print_string(50, pos_y - 1, arr_pos_arg[1], DEFAULT_COLOR);
+    print_number(55, pos_y - 1, count_argv, DEFAULT_COLOR);
 
     if (string_compare(arr_pos_arg[0], "time")) {
         print_time(0, pos_y, DEFAULT_COLOR);
