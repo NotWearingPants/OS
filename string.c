@@ -110,7 +110,7 @@ bool string_fall_space(char* string) {
     return 1;
 }
 
-void string_split(char* string, char delimeter, char** arr) {
+int string_split(char* string, char delimeter, char** arr) {
     int parts_count = 0;
     int i = 0;
     for (; string[i] == delimeter; i++);
@@ -127,6 +127,8 @@ void string_split(char* string, char delimeter, char** arr) {
             }
         }
     }
+
+    return parts_count;
 }
 
 void string_append(char* arr1, char* arr2) {
