@@ -20,9 +20,7 @@ void start_shell() {
 
         pos_y++;
 
-        if (string_is_empty(command) == FALSE) {
-            handle_command(command, length_command);
-        }
+        handle_command(command, length_command);
     }
 }
 
@@ -57,13 +55,13 @@ void print_time(uint8_t x, uint8_t y, uint8_t color) {
 
 void handle_command(char* command, uint8_t length_command) {
     char* arr_pos_argv[50];
-    int count_argv = how_many_words(command) - 1;
-    string_split(command, ' ', arr_pos_argv);
+    // int count_argv = how_many_words(command) - 1;
+    int count_argv = string_split(command, ' ', arr_pos_argv) - 1;
 
     if (count_argv > 0) {
         print_string(50, pos_y - 1, arr_pos_argv[1], DEFAULT_COLOR);
+        print_number(60, pos_y - 1, count_argv, DEFAULT_COLOR);
     }
-    print_number(60, pos_y - 1, count_argv, DEFAULT_COLOR);
 
     if (string_compare(command, "time")) {
         print_time(0, pos_y, DEFAULT_COLOR);
@@ -103,21 +101,4 @@ bool check_write_syntax(char* command) {
     print_string(10, 10, name, DEFAULT_COLOR);
 
     return 1;
-}
-
-int how_many_words(char* str) {
-    uint8_t new_word = 1;
-    int count = 0;
-    for (int i = 0; str[i] != '\0'; i++) {
-        if (new_word == 1 && str[i] != ' ') {
-            count++;
-            new_word = 0;
-        }
-
-        if (str[i] == ' ') {
-            new_word = 1;
-        }
-    }
-
-    return count;
 }
