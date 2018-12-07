@@ -68,10 +68,11 @@ void handle_command(char* command, uint8_t length_command) {
         pos_y++;
 
     } else if (string_compare(command, "read")) {
-        print_string(0, pos_y, read_file("name"), DEFAULT_COLOR);
+        // print_string(0, pos_y, read_file(arr_pos_argv[1]), DEFAULT_COLOR);
         pos_y++;
 
     } else if (string_compare(command, "write")) {
+        // write_file(arr_pos_argv[1], "text");
         pos_y++;
 
     } else if (!string_is_empty(command)) {
