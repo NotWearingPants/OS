@@ -70,15 +70,21 @@ void handle_command(char* command, uint8_t length_command) {
 
     } else if (string_compare(arr_pos_arg[0], "read")) {
         if (count_words != 2) {
-            print_string(0, pos_y++, "Usage: read <filename>", DEFAULT_COLOR);
+            print_string(0, pos_y++, "Usage: read <filename>", COLOR(LIGHT_RED, BLACK));
             return;
         }
 
-        print_string(0, pos_y++, read_file(arr_pos_arg[1]), DEFAULT_COLOR);
+        char file_content[255];
+        if (!read_file(arr_pos_arg[1], file_content)) {
+            print_string(0, pos_y++, "the file does not exist", COLOR(LIGHT_RED, BLACK));
+            return;
+        }
+
+        print_string(0, pos_y++, file_content, DEFAULT_COLOR);
 
     } else if (string_compare(arr_pos_arg[0], "write")) {
         if (count_words != 2) {
-            print_string(0, pos_y++, "Usage: write <filename>", DEFAULT_COLOR);
+            print_string(0, pos_y++, "Usage: write <filename>", COLOR(LIGHT_RED, BLACK));
             return;
         }
 

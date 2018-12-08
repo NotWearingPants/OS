@@ -20,14 +20,15 @@ void add_data_to_memory(char* str) {
 //                           FILES                           //
 ///////////////////////////////////////////////////////////////
 
-char* read_file(char* filename) {
+bool read_file(char* filename, char* buffer) {
     for (int i = 0; i < pointers_count; i += 2) {
         if (string_compare(filename, pointers[i])) {
-            return pointers[i + 1];
+            string_copy(buffer, pointers[i + 1]);
+            return TRUE;
         }
     }
-    
-    return "the file does not exist";
+
+    return FALSE;
 }
 
 void write_file(char* filename, char* contents) {
