@@ -10,6 +10,20 @@
 
 uint8_t pos_y = 0;
 
+void start_shell() {
+
+    while (TRUE) {
+        print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
+
+        char command[100];
+        uint8_t length_command = string_read(PROMPT_LENGTH, pos_y, command);
+
+        pos_y++;
+
+        handle_command(command, length_command);
+    }
+}
+
 void print_time(uint8_t x, uint8_t y, uint8_t color) {
     uint8_t seconds = read_from_cmos(CMOS_REG_SECONDS);
     uint8_t minutes = read_from_cmos(CMOS_REG_MINUTES);
@@ -39,35 +53,27 @@ void print_time(uint8_t x, uint8_t y, uint8_t color) {
     print_char(x + 17, y, (year   % 0x10) + '0', color);
 }
 
-void start_shell() {
-
-    while (TRUE) {
-        print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
-
-        char command[100];
-        uint8_t length_command = string_read(PROMPT_LENGTH, pos_y, command);
-
-        pos_y++;
-
-        handle_command(command, length_command);
-    }
-}
-
 void handle_command(char* command, uint8_t length_command) {
-    int* argv = string_split(command, ' ');
-    print_string(48, pos_y - 1, ixtract_argv(command, argv, 1), DEFAULT_COLOR);
-    // print_string(50, pos_y - 1, command, DEFAULT_COLOR);
+    char* arr_pos_argv[50];
+    int count_words = string_split(command, ' ', arr_pos_argv);
+
+    if (count_words > 1) {
+        print_string(50, pos_y - 1, arr_pos_argv[1], DEFAULT_COLOR);
+    }
+    if (count_words > 0) {
+        print_number(60, pos_y - 1, count_words - 1, DEFAULT_COLOR);
+    }
 
     if (string_compare(command, "time")) {
         print_time(0, pos_y, DEFAULT_COLOR);
         pos_y++;
 
     } else if (string_compare(command, "read")) {
-        print_string(0, pos_y, read_file("test.txt"), DEFAULT_COLOR);
+        // print_string(0, pos_y, read_file(arr_pos_argv[1]), DEFAULT_COLOR);
         pos_y++;
 
     } else if (string_compare(command, "write")) {
-        // write_file(0, pos_y, command, argv);
+        // write_file(arr_pos_argv[1], "text");
         pos_y++;
 
     } else if (!string_is_empty(command)) {
@@ -76,7 +82,7 @@ void handle_command(char* command, uint8_t length_command) {
         print_string(length_command + 1, pos_y, "' is not recognized as command", DEFAULT_COLOR);
         // print_string(string_size(command) + 1, pos_y, "' is not recognized as command", DEFAULT_COLOR);
         pos_y++;
-        
+
     }
 }
 
@@ -97,14 +103,4 @@ bool check_write_syntax(char* command) {
     print_string(10, 10, name, DEFAULT_COLOR);
 
     return 1;
-}
-
-char* ixtract_argv(char* string, int* arr, int argv_num) {
-    static char argv[50] = { '\0' };
-    int i = 0;
-    for ( ; string[arr[argv_num + i]] != '\0'; i++) {
-        argv[i] = string[arr[argv_num] + i];
-    }
-    argv[i] = '\0';
-    return argv;
 }
