@@ -119,8 +119,7 @@ int string_split(char* string, char delimeter, char** arr) {
 
     for (; string[i] != '\0'; i++) {
         if (string[i] == delimeter) {
-            string[i] = '\0';
-            
+            string[i] = '\0'; 
             if (string[i + 1] != delimeter && string[i + 1] != '\0') {
                 arr[parts_count] = &string[i + 1];
                 parts_count++;
