@@ -73,18 +73,18 @@ void handle_command(char* command, uint8_t length_command) {
     } else if (string_compare(arr_pos_arg[0], "read")) {
         if (count_words == 2) {
             print_string(0, pos_y, read_file(arr_pos_arg[1]), DEFAULT_COLOR);
-        }
-        else {
-            print_string(0, pos_y, "Usage: read file_name", DEFAULT_COLOR);
+        } else {
+            print_string(0, pos_y, "Usage: read <filename>", DEFAULT_COLOR);
         }
         pos_y++;
 
     } else if (string_compare(arr_pos_arg[0], "write")) {
         if (count_words == 2) {
-            handel_write_commend(arr_pos_arg);
-        }
-        else {
-            print_string(0, pos_y, "Usage: wire file_name", DEFAULT_COLOR);
+            char data[255];
+            string_read(0, pos_y, data);
+            write_file(arr_pos_arg[1], data);
+        } else {
+            print_string(0, pos_y, "Usage: write <filename>", DEFAULT_COLOR);
         }
         pos_y++;
 
@@ -96,11 +96,4 @@ void handle_command(char* command, uint8_t length_command) {
         pos_y++;
 
     }
-}
-
-void handel_write_commend(char** str) {
-    char data[255];
-    string_read(0, pos_y, data);
-
-    write_file(str[1], data);
 }
