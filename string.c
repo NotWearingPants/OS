@@ -127,13 +127,3 @@ unsigned int string_split(char* str, char delimeter, char** parts) {
 
     return parts_count;
 }
-
-void string_combination(char* str1, char* str2, char* buffer) {
-    int buffer_pos = 0;
-    for (; str1[buffer_pos] != '\0'; buffer_pos++) {
-        buffer[buffer_pos] = str1[buffer_pos];
-    }
-    for (int srt_pos = 0; str2[srt_pos] != '\0'; buffer_pos++, srt_pos++) {
-        buffer[buffer_pos] = str2[srt_pos];
-    }
-}
