@@ -8,7 +8,7 @@ bool string_is_empty(char* command);
 void string_copy(char* destination, char* source);
 uint8_t string_read(uint8_t pos_x, uint8_t pos_y, char* buffer);
 uint8_t string_size(char* string);
-void string_combination(char* arr1, char* arr2, char* buffer);
+void string_combination(char* str1, char* str2, char* buffer);
 unsigned int string_split(char* str, char delimeter, char** parts);
 bool string_fall_space(char* string);
 
