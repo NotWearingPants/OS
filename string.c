@@ -113,9 +113,13 @@ bool string_fall_space(char* string) {
 int string_split(char* string, char delimeter, char** arr) {
     int parts_count = 0;
     int i = 0;
-    for (; string[i] == delimeter; i++);
-    arr[parts_count] = &string[i];
-    parts_count++;
+    for (; string[i] == delimeter; i++); // block that ignor all first space
+    arr[parts_count] = &string[i]; // save the first string (commend)
+
+    // if the user prass enter dont count 1 word
+    if (string[i] != '\0') {
+        parts_count++;
+    }
 
     for (; string[i] != '\0'; i++) {
         if (string[i] == delimeter) {

@@ -55,13 +55,14 @@ void print_time(uint8_t x, uint8_t y, uint8_t color) {
 
 void handle_command(char* command, uint8_t length_command) {
     char* arr_pos_argv[50];
-    // int count_argv = how_many_words(command) - 1;
-    int count_argv = string_split(command, ' ', arr_pos_argv) - 1;
+    int count_words = string_split(command, ' ', arr_pos_argv);
 
-    if (count_argv > 0) {
+    if (count_words > 1) {
         print_string(50, pos_y - 1, arr_pos_argv[1], DEFAULT_COLOR);
     }
-    print_number(60, pos_y - 1, count_argv, DEFAULT_COLOR);
+    if (count_words > 0) {
+        print_number(60, pos_y - 1, count_words - 1, DEFAULT_COLOR);
+    }
 
     if (string_compare(command, "time")) {
         print_time(0, pos_y, DEFAULT_COLOR);
