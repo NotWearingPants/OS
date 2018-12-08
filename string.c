@@ -110,30 +110,18 @@ bool string_fall_space(char* string) {
     return 1;
 }
 
-int string_split(char* string, char delimeter, char** arr) {
+int string_split(char* str, char delimeter, char** parts) {
+    bool can_start_new_part = TRUE;
     int parts_count = 0;
-    int i = 0;
 
-    if (string_is_empty(string)) {
-        return parts_count; // Exists in three rows need to fix
-    }
-
-    for (; string[i] == delimeter; i++); // block that ignor all first delimeter
-
-    // if the string is empty
-    if (string[i] == '\0') {
-        return parts_count;
-    }
-    arr[parts_count] = &string[i]; // save the first string
-    parts_count++;
-
-    for (; string[i] != '\0'; i++) {
-        if (string[i] == delimeter) {
-            string[i] = '\0';
-            if (string[i + 1] != delimeter && string[i + 1] != '\0') {
-                arr[parts_count] = &string[i + 1];
-                parts_count++;
-            }
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] == delimeter) {
+            str[i] = '\0';
+            can_start_new_part = TRUE;
+        } else if (can_start_new_part) {
+            can_start_new_part = FALSE;
+            parts[parts_count] = &str[i];
+            parts_count++;
         }
     }
 
