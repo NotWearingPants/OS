@@ -20,9 +20,7 @@ void start_shell() {
 
         pos_y++;
 
-        if (!string_is_empty(command)) {
-            handle_command(command, length_command);
-        }
+        handle_command(command, length_command);
     }
 }
 
@@ -71,22 +69,22 @@ void handle_command(char* command, uint8_t length_command) {
         pos_y++;
 
     } else if (string_compare(arr_pos_arg[0], "read")) {
-        if (count_words == 2) {
-            print_string(0, pos_y, read_file(arr_pos_arg[1]), DEFAULT_COLOR);
-        } else {
-            print_string(0, pos_y, "Usage: read <filename>", DEFAULT_COLOR);
+        if (count_words != 2) {
+            print_string(0, pos_y++, "Usage: read <filename>", DEFAULT_COLOR);
+            return;
         }
-        pos_y++;
+
+        print_string(0, pos_y++, read_file(arr_pos_arg[1]), DEFAULT_COLOR);
 
     } else if (string_compare(arr_pos_arg[0], "write")) {
-        if (count_words == 2) {
-            char data[255];
-            string_read(0, pos_y, data);
-            write_file(arr_pos_arg[1], data);
-        } else {
-            print_string(0, pos_y, "Usage: write <filename>", DEFAULT_COLOR);
+        if (count_words != 2) {
+            print_string(0, pos_y++, "Usage: write <filename>", DEFAULT_COLOR);
+            return;
         }
-        pos_y++;
+
+        char data[255];
+        string_read(0, pos_y++, data);
+        write_file(arr_pos_arg[1], data);
 
     } else if (!string_is_empty(arr_pos_arg[0])) {
         print_string(0, pos_y, "'", DEFAULT_COLOR);
