@@ -27,11 +27,11 @@ bool string_is_empty(char* command) {
     return FALSE;
 }
 
-void string_copy(char* destination, char* source) {
+unsigned int string_copy(char* destination, char* source) {
     for (int i = 0; ; i++) {
         destination[i] = source[i];
         if (source[i] == '\0') {
-            break;
+            return i;
         }
     }
 }
