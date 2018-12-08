@@ -60,8 +60,8 @@ void handle_command(char* command, uint8_t length_command) {
 
     if (count_argv > 0) {
         print_string(50, pos_y - 1, arr_pos_argv[1], DEFAULT_COLOR);
-        print_number(60, pos_y - 1, count_argv, DEFAULT_COLOR);
     }
+    print_number(60, pos_y - 1, count_argv, DEFAULT_COLOR);
 
     if (string_compare(command, "time")) {
         print_time(0, pos_y, DEFAULT_COLOR);
