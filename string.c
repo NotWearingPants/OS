@@ -110,9 +110,9 @@ bool string_fall_space(char* string) {
     return 1;
 }
 
-int string_split(char* str, char delimeter, char** parts) {
+unsigned int string_split(char* str, char delimeter, char** parts) {
     bool can_start_new_part = TRUE;
-    int parts_count = 0;
+    unsigned int parts_count = 0;
 
     for (int i = 0; str[i] != '\0'; i++) {
         if (str[i] == delimeter) {
