@@ -13,11 +13,8 @@ void add_data_to_memory(char* str) {
     pointers[count] = &memory[pos];
     count++;
 
-    for (int i = 0; str[i] != '\0'; i++, pos++) {
-        memory[pos] = str[i];
-    }
-    memory[pos] = '\0';
-    pos++;
+    int str_size = string_copy(&memory[pos], str);
+    pos += str_size + 1; // +1 for the null terminator
 }
 
 ///////////////////////////////////////////////////////////////
