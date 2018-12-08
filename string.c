@@ -113,14 +113,18 @@ bool string_fall_space(char* string) {
 int string_split(char* string, char delimeter, char** arr) {
     int parts_count = 0;
     int i = 0;
-    for (; string[i] == delimeter; i++); // block that ignor all first delimeter
-    arr[parts_count] = &string[i]; // save the first string
 
-    // if the string is string is empty
+    if (string_is_empty(string)) {
+        return parts_count; // Exists in three rows need to fix
+    }
+
+    for (; string[i] == delimeter; i++); // block that ignor all first delimeter
+
+    // if the string is empty
     if (string[i] == '\0') {
         return parts_count;
     }
-    
+    arr[parts_count] = &string[i]; // save the first string
     parts_count++;
 
     for (; string[i] != '\0'; i++) {
