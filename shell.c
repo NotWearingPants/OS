@@ -57,18 +57,21 @@ void print_time(uint8_t x, uint8_t y, uint8_t color) {
 
 void handle_command(char* command, uint8_t length_command) {
     char* arr_pos_arg[50];
-    int count_argv = how_many_words(command) - 1;
-    string_split(command, ' ', arr_pos_arg);
+    int count_words = string_split(command, ' ', arr_pos_arg);
 
-    print_string(50, pos_y - 1, arr_pos_arg[1], DEFAULT_COLOR);
-    print_number(55, pos_y - 1, count_argv, DEFAULT_COLOR);
+    if (count_words > 1) {
+        print_string(50, pos_y - 1, arr_pos_arg[1], DEFAULT_COLOR);
+    }
+    if (count_words > 0) {
+        print_number(60, pos_y - 1, count_words - 1, DEFAULT_COLOR);
+    }
 
     if (string_compare(arr_pos_arg[0], "time")) {
         print_time(0, pos_y, DEFAULT_COLOR);
         pos_y++;
 
     } else if (string_compare(arr_pos_arg[0], "read")) {
-        if (count_argv == 1) {
+        if (count_words == 2) {
             print_string(0, pos_y, read_file(arr_pos_arg[1]), DEFAULT_COLOR);
         }
         else {
@@ -77,7 +80,7 @@ void handle_command(char* command, uint8_t length_command) {
         pos_y++;
 
     } else if (string_compare(arr_pos_arg[0], "write")) {
-        if (count_argv == 1) {
+        if (count_words == 2) {
             handel_write_commend(arr_pos_arg);
         }
         else {
@@ -93,23 +96,6 @@ void handle_command(char* command, uint8_t length_command) {
         pos_y++;
 
     }
-}
-
-int how_many_words(char* str) {
-    bool flag = 1;
-    int count = 0;
-    for (int i = 0; str[i] != '\0'; i++) {
-        if (flag == 1 && str[i] != ' ') {
-            count++;
-            flag = 0;
-        }
-
-        if (str[i] == ' ') {
-            flag = 1;
-        }
-    }
-
-    return count;
 }
 
 void handel_write_commend(char** str) {

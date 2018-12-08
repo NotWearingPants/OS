@@ -110,27 +110,22 @@ bool string_fall_space(char* string) {
     return 1;
 }
 
-void string_split(char* string, char delimeter, char** arr) {
-    static char q = '\0';
+unsigned int string_split(char* str, char delimeter, char** parts) {
+    bool can_start_new_part = TRUE;
+    unsigned int parts_count = 0;
 
-    int count = 0;
-    int i = 0;
-    for (; string[i] == delimeter; i++);
-    arr[count] = &string[i];
-    count++;
-
-    for (; string[i] != '\0'; i++) {
-        if (string[i] == delimeter) {
-            string[i] = '\0';
-            
-            if (string[i + 1] != delimeter) {
-                arr[count] = &string[i + 1];
-                count++;
-            }
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] == delimeter) {
+            str[i] = '\0';
+            can_start_new_part = TRUE;
+        } else if (can_start_new_part) {
+            can_start_new_part = FALSE;
+            parts[parts_count] = &str[i];
+            parts_count++;
         }
     }
 
-    arr[count] = &q;
+    return parts_count;
 }
 
 void string_combination(char* arr1, char* arr2, char* buffer) {

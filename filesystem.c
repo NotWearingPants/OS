@@ -20,6 +20,10 @@ void add_data_to_memory(char* str) {
     pos++;
 }
 
+///////////////////////////////////////////////////////////////
+//                           FILES                           //
+///////////////////////////////////////////////////////////////
+
 char* read_file(char* filename) {
     char* error = "the file does not exist";
     for (int i = 0; i < count_files * 2; i += 2) {
@@ -35,4 +39,44 @@ void write_file(char* filename, char* contents) {
     count_files++;
     add_data_to_memory(filename);
     add_data_to_memory(contents);
+}
+
+void /*?*/ delete_file(/* ? */) {
+    // TODO
+}
+
+void /*?*/ move_file(/* ? */) {
+    // TODO
+}
+
+void /*?*/ is_file(/* ? */) {
+    // TODO
+}
+
+void /*?*/ get_file_size(/* ? */) {
+    // TODO
+}
+
+///////////////////////////////////////////////////////////////
+//                        DIRECTORIES                        //
+///////////////////////////////////////////////////////////////
+
+void /*?*/ make_directory(/* ? */) {
+    // TODO
+}
+
+void /*?*/ remove_directory(/* ? */) {
+    // TODO
+}
+
+void /*?*/ move_directory(/* ? */) {
+    // TODO
+}
+
+void /*?*/ is_directory(/* ? */) {
+    // TODO
+}
+
+void /*?*/ get_directory_contents(/* ? */) {
+    // TODO
 }
