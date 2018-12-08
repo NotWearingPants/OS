@@ -20,7 +20,7 @@ void start_shell() {
 
         pos_y++;
 
-        if (string_is_empty(command) == FALSE) {
+        if (!string_is_empty(command)) {
             handle_command(command, length_command);
         }
     }

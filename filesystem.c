@@ -25,14 +25,13 @@ void add_data_to_memory(char* str) {
 ///////////////////////////////////////////////////////////////
 
 char* read_file(char* filename) {
-    char* error = "the file does not exist";
     for (int i = 0; i < count_files * 2; i += 2) {
         if (string_compare(filename, pointers[i])) {
             return pointers[i + 1];
         }
     }
     
-    return error;
+    return "the file does not exist";
 }
 
 void write_file(char* filename, char* contents) {
