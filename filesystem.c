@@ -1,6 +1,8 @@
 #include "filesystem.h"
 #include "string.h"
 
+bool file_exists(char* filename);
+
 char memory[255];
 char* pointers[255];
 int pointers_count = 0;
@@ -32,6 +34,10 @@ bool read_file(char* filename, char* buffer) {
 }
 
 void write_file(char* filename, char* contents) {
+    if (file_exists(filename)) {
+        delete_file(filename);
+    }
+    
     add_data_to_memory(filename);
     add_data_to_memory(contents);
 }
@@ -44,6 +50,26 @@ bool file_exists(char* filename) {
     }
     return FALSE;
 }
+
+// pointers_count is wrong because this func
+void delete_file(char* filename) {
+    char* file_pointer;
+
+    for (int name_pos = 0; name_pos < pointers_count; name_pos += 2) {
+        if (string_compare(filename, pointers[name_pos])) {
+            file_pointer = pointers[name_pos];
+            break;
+        }
+    }
+
+    int num = 0;
+    for (int i = 0; num != 2; i++) {
+        if (file_pointer[i] == '\0') {
+            num++;
+        }
+
+        file_pointer[i] = '\0';
+    }
 }
 
 void /*?*/ move_file(/* ? */) {

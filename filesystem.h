@@ -6,11 +6,10 @@
 
 bool read_file(char* filename, char* buffer);
 void write_file(char* filename, char* contents);
-void /*?*/ delete_file(/* ? */);
+void delete_file(char* filename);
 void /*?*/ move_file(/* ? */);
 void /*?*/ is_file(/* ? */);
 void /*?*/ get_file_size(/* ? */);
-bool file_exists(char* filename);
 
 /////////////////
 // DIRECTORIES //
