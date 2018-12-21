@@ -92,7 +92,7 @@ void handle_command(char* command, uint8_t length_command) {
         string_read(0, pos_y++, data);
         write_file(arr_pos_arg[1], data);
 
-    } else if (!string_is_empty(arr_pos_arg[0])) {
+    } else if (!string_is_empty(command)) {
         print_string(0, pos_y, "'", DEFAULT_COLOR);
         print_string(1, pos_y, command, DEFAULT_COLOR);
         print_string(length_command + 1, pos_y, "' is not recognized as command", DEFAULT_COLOR);
