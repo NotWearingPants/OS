@@ -3,7 +3,7 @@
 
 bool file_exists(char* filename);
 
-char memory[255];
+char memory[1000];
 char* pointers[255];
 int pointers_count = 0;
 
