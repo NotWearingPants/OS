@@ -36,8 +36,14 @@ void write_file(char* filename, char* contents) {
     add_data_to_memory(contents);
 }
 
-void /*?*/ delete_file(/* ? */) {
-    // TODO
+bool file_exists(char* filename) {
+    for (int i = 0; i < pointers_count; i += 2) {
+        if (string_compare(filename, pointers[i])) {
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
 }
 
 void /*?*/ move_file(/* ? */) {

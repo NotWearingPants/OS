@@ -10,6 +10,7 @@ void /*?*/ delete_file(/* ? */);
 void /*?*/ move_file(/* ? */);
 void /*?*/ is_file(/* ? */);
 void /*?*/ get_file_size(/* ? */);
+bool file_exists(char* filename);
 
 /////////////////
 // DIRECTORIES //
