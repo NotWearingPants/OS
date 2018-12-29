@@ -23,6 +23,14 @@
 #define PREPARE_TO_READ()       while (!IS_PREPARED_TO_READ())
 #define PREPARE_TO_WRITE()      while (!IS_PREPARED_TO_WRITE())
 
+// special key
+#define UP          200
+#define LEFT        203
+#define RIGHT       205
+#define DOWN        208
+
+#define ARROW_TYPE      224
+
 const uint8_t key_map[] = {
     '\0', '\0', '1',  '2',  '3',  '4',  '5',  '6',  '7',  '8',  '9',  '0',  '-',  '=',  127, '\0',
     'q',  'w',  'e',  'r',  't',  'y',  'u',  'i',  'o',  'p',  '[',  ']',  '\n', '\0', 'a',  's',
@@ -43,6 +51,8 @@ const uint8_t key_map[] = {
 };
 
 volatile bool keyPressed = FALSE;
+volatile bool special_key_press = FALSE;
+uint8_t special_key = 0;
 volatile uint8_t key;
 
 uint8_t get_char() {
@@ -52,12 +62,38 @@ uint8_t get_char() {
     return key;
 }
 
+uint8_t get_special_key() {
+    while(special_key == 0);
+    uint8_t key = special_key; // new key
+    special_key = 0;
+
+    return key;
+}
+
+bool key_pressed() {
+    return keyPressed;
+}
+
+bool special_key_pressed() {
+    return special_key_press;
+}
+
 void keyboard_handle_interrupt() {
     if (!IS_PREPARED_TO_READ()) {
         return;
     }
 
     uint8_t data = READ_DATA();
+
+    if (special_key_press) {
+        special_key_press = FALSE;
+
+        special_key = data;
+    }
+
+    if (data == ARROW_TYPE && !(special_key_press)) {
+        special_key_press = TRUE;
+    }
 
     // we can miss some keys :(
     key = key_map[data];

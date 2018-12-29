@@ -6,3 +6,6 @@
 
 void keyboard_handle_interrupt();
 uint8_t get_char();
+uint8_t get_special_key();
+bool key_pressed();
+bool special_key_pressed();
