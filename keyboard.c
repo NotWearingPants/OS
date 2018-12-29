@@ -28,6 +28,8 @@
 #define LEFT        203
 #define RIGHT       205
 #define DOWN        208
+#define DELETE      211
+#define START       219
 
 #define ARROW_TYPE      224
 
