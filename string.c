@@ -57,7 +57,7 @@ uint8_t string_read(uint8_t pos_x, uint8_t pos_y, char* buffer) {
                 buffer[length_command] = ' ';
             }
         }
-        else {
+        else if (key != LEFT_KEY && key != RIGHT_KEY && key != UP_KEY && key != DOUN_KEY) {
             buffer[length_command] = key;
             print_char(pos_x + length_command, pos_y, key, DEFAULT_COLOR);
             length_command++;
@@ -67,26 +67,6 @@ uint8_t string_read(uint8_t pos_x, uint8_t pos_y, char* buffer) {
     
     buffer[length_command] = '\0';
     return length_command;
-
-    // for (length_command = 0; ; length_command++) {
-    //     move_cursor(pos_x + length_command, pos_y);
-    //     char key = get_char();
-
-    //     if (key == '\n') {
-    //         break;
-    //     }
-
-    //     if (key == DELETE && length_command > 0) {
-    //         length_command--;
-    //         key = ' ';
-    //     }
-
-    //     buffer[length_command] = key;
-    //     print_char(pos_x + length_command, pos_y, key, DEFAULT_COLOR);
-    // }
-
-    // buffer[length_command] = '\0';
-    // return length_command;
 }
 
 uint8_t string_size(char* string) {
