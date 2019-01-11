@@ -16,12 +16,45 @@ void start_shell() {
         print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
 
         char command[100];
-        uint8_t length_command = string_read(PROMPT_LENGTH, pos_y, command);
+        // uint8_t length_command = string_read(PROMPT_LENGTH, pos_y, command);
+        int length_command = shell_input(PROMPT_LENGTH, pos_y, command);
 
         pos_y++;
 
         handle_command(command, length_command);
     }
+}
+
+int shell_input(uint8_t pos_x, uint8_t pos_y, char* buffer) {
+    char key = ' ';
+    int length_command = 0;
+    
+    move_cursor(pos_x + length_command, pos_y);
+
+    while (TRUE) {
+        key = get_char();
+        if (key == '\n') {
+            buffer[length_command] = '\0';
+            break;
+        }
+        
+
+        if (key == RIGHT_KEY || key == LEFT_KEY || key == UP_KEY || key == DOUN_KEY) {
+            buffer[0] = key;
+            buffer[1] = '\0';
+            length_command = 1;
+            break;
+        }
+
+        print_char(pos_x + length_command, pos_y, key, DEFAULT_COLOR);
+
+        buffer[length_command] = key;
+        length_command++;
+
+        move_cursor(pos_x + length_command, pos_y);
+    }
+
+    return length_command;
 }
 
 void print_time(uint8_t x, uint8_t y, uint8_t color) {
