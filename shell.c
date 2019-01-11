@@ -38,7 +38,6 @@ int shell_input(uint8_t pos_x, uint8_t pos_y, char* buffer) {
             break;
         }
         
-
         if (key == RIGHT_KEY || key == LEFT_KEY || key == UP_KEY || key == DOUN_KEY) {
             buffer[0] = key;
             buffer[1] = '\0';
@@ -46,10 +45,19 @@ int shell_input(uint8_t pos_x, uint8_t pos_y, char* buffer) {
             break;
         }
 
-        print_char(pos_x + length_command, pos_y, key, DEFAULT_COLOR);
+        if (key == DELETE) {
+            if (length_command > 0) {
+                length_command--;
+                print_char(pos_x + length_command, pos_y, ' ', DEFAULT_COLOR);
+                buffer[length_command] = ' ';
+            }
+        }
+        else {
+            print_char(pos_x + length_command, pos_y, key, DEFAULT_COLOR);
 
-        buffer[length_command] = key;
-        length_command++;
+            buffer[length_command] = key;
+            length_command++;
+        }
 
         move_cursor(pos_x + length_command, pos_y);
     }
