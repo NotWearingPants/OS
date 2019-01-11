@@ -23,14 +23,6 @@
 #define PREPARE_TO_READ()       while (!IS_PREPARED_TO_READ())
 #define PREPARE_TO_WRITE()      while (!IS_PREPARED_TO_WRITE())
 
-// special key
-#define UP          200
-#define LEFT        203
-#define RIGHT       205
-#define DOWN        208
-#define DELETE      211
-#define START       219
-
 const uint8_t key_map[] = {
     '\0', '\0', '1',  '2',  '3',  '4',  '5',  '6',  '7',  '8',  '9',  '0',  '-',  '=',  127, '\0',  // 15
     'q',  'w',  'e',  'r',  't',  'y',  'u',  'i',  'o',  'p',  '[',  ']',  '\n', '\0', 'a',  's',  // 31
