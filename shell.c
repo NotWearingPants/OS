@@ -38,7 +38,7 @@ int shell_input(uint8_t pos_x, uint8_t pos_y, char* buffer) {
             break;
         }
         
-        if (key == RIGHT_KEY || key == LEFT_KEY || key == UP_KEY || key == DOUN_KEY) {
+        if (key == RIGHT_KEY || key == LEFT_KEY || key == UP_KEY || key == DOWN_KEY) {
             buffer[0] = key;
             buffer[1] = '\0';
             length_command = 1;
@@ -63,6 +63,19 @@ int shell_input(uint8_t pos_x, uint8_t pos_y, char* buffer) {
     }
 
     return length_command;
+}
+
+bool special_key_press(char key) {
+    int special_key[] = { RIGHT_KEY, LEFT_KEY, UP_KEY, DOWN_KEY, };
+
+    // 4 is a natural number chaing it
+    for (int i = 0; i < 4; i++) {
+        if (key == special_key[i]) {
+            return TRUE;
+        }
+    }
+
+    return FALSE;
 }
 
 void print_time(uint8_t x, uint8_t y, uint8_t color) {
