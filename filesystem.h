@@ -23,3 +23,4 @@ void /*?*/ get_directory_contents(/* ? */);
 
 
 void add_data_to_memory(char* str);
+bool file_exists(char* filename);

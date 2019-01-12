@@ -1,8 +1,6 @@
 #include "filesystem.h"
 #include "string.h"
 
-bool file_exists(char* filename);
-
 char memory[1000];
 char* pointers[255];
 int pointers_count = 0;
@@ -63,13 +61,16 @@ void delete_file(char* filename) {
     }
 
     int num = 0;
-    for (int i = 0; num != 2; i++) {
-        if (file_pointer[i] == '\0') {
+    for (int file_pos = 0; num != 2; file_pos++) {
+        if (file_pointer[file_pos] == '\0') {
             num++;
         }
 
-        file_pointer[i] = '\0';
+        file_pointer[file_pos] = '\0';
     }
+
+    // pointers Rotate 2 left
+    // pointers_count -= 2;
 }
 
 void /*?*/ move_file(/* ? */) {
