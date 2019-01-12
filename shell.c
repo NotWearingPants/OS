@@ -18,10 +18,16 @@ void start_shell() {
         char command[100];
         // uint8_t length_command = string_read(PROMPT_LENGTH, pos_y, command);
         int length_command = shell_input(PROMPT_LENGTH, pos_y, command);
+        if (special_key_press(command[0])) {
+            if (command[0] == UP_KEY) {
+                print_char(2, 0, 'U', DEFAULT_COLOR);
+            }
+        }
+        else {
+            pos_y++;
 
-        pos_y++;
-
-        handle_command(command, length_command);
+            handle_command(command, length_command);
+        }
     }
 }
 
