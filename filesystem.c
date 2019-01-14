@@ -23,9 +23,9 @@ void add_data_to_memory(char* str) {
 ///////////////////////////////////////////////////////////////
 
 bool read_file(char* filename, char* buffer) {
-    for (int i = 0; i < pointers_count; i += 2) {
-        if (string_compare(filename, pointers[i])) {
-            string_copy(buffer, pointers[i + 1]);
+    for (int file_pos = 0; file_pos < pointers_count; file_pos += 2) {
+        if (string_compare(filename, pointers[file_pos])) {
+            string_copy(buffer, pointers[file_pos + 1]);
             return TRUE;
         }
     }
@@ -43,8 +43,8 @@ void write_file(char* filename, char* contents) {
 }
 
 bool file_exists(char* filename) {
-    for (int i = 0; i < pointers_count; i += 2) {
-        if (string_compare(filename, pointers[i])) {
+    for (int file_pos = 0; file_pos < pointers_count; file_pos += 2) {
+        if (string_compare(filename, pointers[file_pos])) {
             return TRUE;
         }
     }
