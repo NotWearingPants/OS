@@ -75,6 +75,15 @@ void delete_file(char* filename) {
     // pointers_count -= 2;
 }
 
+int find_file_in_pointerslist(char* file_name) {
+	for (int name_pos = 0; name_pos < pointers_count; name_pos += 2) {
+        if (string_compare(file_name, pointers[name_pos])) {
+            return name_pos;
+        }
+    }
+    return -1;
+}
+
 void /*?*/ move_file(/* ? */) {
     // TODO
 }
