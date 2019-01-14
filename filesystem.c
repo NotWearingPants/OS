@@ -2,6 +2,7 @@
 #include "string.h"
 
 void add_data_to_memory(char* str);
+int find_file_in_pointerslist(char* file_name);
 
 char memory[1000];
 char* pointers[255];
