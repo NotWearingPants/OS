@@ -23,6 +23,14 @@ void add_data_to_memory(char* str) {
 ///////////////////////////////////////////////////////////////
 
 bool read_file(char* filename, char* buffer) {
+	int file_pos = find_file_in_pointerslist(filename);
+	if (file_pos != -1) {
+		string_copy(buffer, pointers[file_pos + 1]);
+		return TRUE;
+	}
+	
+	return FALSE;
+/*
     for (int file_pos = 0; file_pos < pointers_count; file_pos += 2) {
         if (string_compare(filename, pointers[file_pos])) {
             string_copy(buffer, pointers[file_pos + 1]);
@@ -31,6 +39,7 @@ bool read_file(char* filename, char* buffer) {
     }
 
     return FALSE;
+*/
 }
 
 void write_file(char* filename, char* contents) {
@@ -43,25 +52,37 @@ void write_file(char* filename, char* contents) {
 }
 
 bool file_exists(char* filename) {
+	if (find_file_in_pointerslist(filename) == -1) {
+		return FALSE;
+	}
+	
+	return TRUE;
+/*
     for (int file_pos = 0; file_pos < pointers_count; file_pos += 2) {
         if (string_compare(filename, pointers[file_pos])) {
             return TRUE;
         }
     }
     return FALSE;
+*/
 }
 
 // pointers_count is wrong because this func
 void delete_file(char* filename) {
     char* file_pointer;
 
+    int file_pos = find_file_in_pointerslist(filename);
+    if (file_pos != -1) {  	
+        file_pointer = pointers[file_pos];
+    }
+/*
     for (int name_pos = 0; name_pos < pointers_count; name_pos += 2) {
         if (string_compare(filename, pointers[name_pos])) {
             file_pointer = pointers[name_pos];
             break;
         }
     }
-
+*/
     int num = 0;
     for (int file_pos = 0; num != 2; file_pos++) {
         if (file_pointer[file_pos] == '\0') {
