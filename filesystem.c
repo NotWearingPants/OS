@@ -1,6 +1,8 @@
 #include "filesystem.h"
 #include "string.h"
 
+void add_data_to_memory(char* str);
+
 char memory[1000];
 char* pointers[255];
 int pointers_count = 0;
