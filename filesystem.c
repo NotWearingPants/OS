@@ -31,16 +31,6 @@ bool read_file(char* filename, char* buffer) {
 	}
 	
 	return FALSE;
-/*
-    for (int file_pos = 0; file_pos < pointers_count; file_pos += 2) {
-        if (string_compare(filename, pointers[file_pos])) {
-            string_copy(buffer, pointers[file_pos + 1]);
-            return TRUE;
-        }
-    }
-
-    return FALSE;
-*/
 }
 
 void write_file(char* filename, char* contents) {
@@ -58,14 +48,6 @@ bool file_exists(char* filename) {
 	}
 	
 	return TRUE;
-/*
-    for (int file_pos = 0; file_pos < pointers_count; file_pos += 2) {
-        if (string_compare(filename, pointers[file_pos])) {
-            return TRUE;
-        }
-    }
-    return FALSE;
-*/
 }
 
 // pointers_count is wrong because this func
@@ -77,14 +59,7 @@ void delete_file(char* filename) {
     if (file_pos != -1) {  	
         file_pointer = pointers[file_pos];
     }
-/*
-    for (int name_pos = 0; name_pos < pointers_count; name_pos += 2) {
-        if (string_compare(filename, pointers[name_pos])) {
-            file_pointer = pointers[name_pos];
-            break;
-        }
-    }
-*/
+
 // in the memory saved name string and data string, we delet both
 // better name required!
     int num = 0;
