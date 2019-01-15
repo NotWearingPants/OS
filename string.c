@@ -57,7 +57,7 @@ uint8_t string_read(uint8_t pos_x, uint8_t pos_y, char* buffer) {
                 buffer[length_command] = ' ';
             }
         }
-        else if (key != LEFT_KEY && key != RIGHT_KEY && key != UP_KEY && key != DOUN_KEY) {
+        else if (key != LEFT_KEY && key != RIGHT_KEY && key != UP_KEY && key != DOWN_KEY) {
             buffer[length_command] = key;
             print_char(pos_x + length_command, pos_y, key, DEFAULT_COLOR);
             length_command++;

@@ -5,7 +5,7 @@
 #define LEFT_KEY    1
 #define RIGHT_KEY   2
 #define UP_KEY      3
-#define DOUN_KEY    4
+#define DOWN_KEY    4
 #define DELETE      127
 
 // #define CAPSLK      0x3a
