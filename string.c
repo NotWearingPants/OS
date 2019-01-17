@@ -61,12 +61,16 @@ uint8_t string_read(uint8_t pos_x, uint8_t pos_y, char* buffer) {
             buffer[length_command] = key;
             print_char(pos_x + length_command, pos_y, key, DEFAULT_COLOR);
             length_command++;
+        } else {
+        	buffer[0] = '\0';
+        	return key;
         }
 
     }
     
     buffer[length_command] = '\0';
-    return length_command;
+    //return length_command;
+    return '\0';
 }
 
 uint8_t string_size(char* string) {

@@ -16,15 +16,20 @@ void start_shell() {
         print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
 
         char command[100];
-        // uint8_t length_command = string_read(PROMPT_LENGTH, pos_y, command);
-        int length_command = shell_input(PROMPT_LENGTH, pos_y, command);
+        uint8_t special_key = string_read(PROMPT_LENGTH, pos_y, command);
+        if (specil_key != '\0') {
+        	// check what arrow pres and do samting
+        } else {
+          uint8_t length_command = string_size(command);
+          //int length_command = shell_input(PROMPT_LENGTH, pos_y, command);
 
-        pos_y++;
+          pos_y++;
 
-        handle_command(command, length_command);
+          handle_command(command, length_command);
+        }
     }
 }
-
+/*
 int shell_input(uint8_t pos_x, uint8_t pos_y, char* buffer) {
     char key = ' ';
     int length_command = 0;
@@ -77,7 +82,7 @@ bool special_key_press(char key) {
 
     return FALSE;
 }
-
+*/
 void print_time(uint8_t x, uint8_t y, uint8_t color) {
     uint8_t seconds = read_from_cmos(CMOS_REG_SECONDS);
     uint8_t minutes = read_from_cmos(CMOS_REG_MINUTES);
