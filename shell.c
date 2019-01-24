@@ -17,7 +17,7 @@ void start_shell() {
 
         char command[100];
         uint8_t special_key = string_read(PROMPT_LENGTH, pos_y, command);
-        if (specil_key != '\0') {
+        if (special_key != '\0') {
         	// check what arrow pres and do samting
         } else {
           uint8_t length_command = string_size(command);
