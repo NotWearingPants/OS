@@ -18,71 +18,33 @@ void start_shell() {
         char command[100];
         uint8_t special_key = string_read(PROMPT_LENGTH, pos_y, command);
         if (special_key != '\0') {
-        	// check what arrow pres and do samting
-        } else {
-          uint8_t length_command = string_size(command);
-          //int length_command = shell_input(PROMPT_LENGTH, pos_y, command);
-
-          pos_y++;
-
-          handle_command(command, length_command);
-        }
-    }
-}
-/*
-int shell_input(uint8_t pos_x, uint8_t pos_y, char* buffer) {
-    char key = ' ';
-    int length_command = 0;
-    
-    move_cursor(pos_x + length_command, pos_y);
-
-    while (TRUE) {
-        key = get_char();
-        if (key == '\n') {
-            buffer[length_command] = '\0';
-            break;
-        }
-        
-        if (key == RIGHT_KEY || key == LEFT_KEY || key == UP_KEY || key == DOUN_KEY) {
-            buffer[0] = key;
-            buffer[1] = '\0';
-            length_command = 1;
-            break;
-        }
-
-        if (key == DELETE) {
-            if (length_command > 0) {
-                length_command--;
-                print_char(pos_x + length_command, pos_y, ' ', DEFAULT_COLOR);
-                buffer[length_command] = ' ';
+            if (special_key == RIGHT_KEY) {
+                print_string(0, 10, "RIGHT_KEY", DEFAULT_COLOR);
             }
-        }
-        else {
-            print_char(pos_x + length_command, pos_y, key, DEFAULT_COLOR);
+            
+            if (special_key == LEFT_KEY) {
+                print_string(0, 10, "LEFT_KEY", DEFAULT_COLOR);
+            }
+            
+            if (special_key == UP_KEY) {
+                print_string(0, 10, "UP_KEY", DEFAULT_COLOR);
+            }
+            
+            if (special_key == DOWN_KEY) {
+                print_string(0, 10, "DOWN_KEY", DEFAULT_COLOR);
+            }
+        } else {
+            print_string(0, 10, "                 ", DEFAULT_COLOR);
 
-            buffer[length_command] = key;
-            length_command++;
-        }
+            uint8_t length_command = string_size(command);
 
-        move_cursor(pos_x + length_command, pos_y);
+            pos_y++;
+
+            handle_command(command, length_command);
+        }
     }
-
-    return length_command;
 }
 
-bool special_key_press(char key) {
-    int special_key[] = { RIGHT_KEY, LEFT_KEY, UP_KEY, DOUN_KEY, };
-
-    // 4 is a natural number chaing it
-    for (int i = 0; i < 4; i++) {
-        if (key == special_key[i]) {
-            return TRUE;
-        }
-    }
-
-    return FALSE;
-}
-*/
 void print_time(uint8_t x, uint8_t y, uint8_t color) {
     uint8_t seconds = read_from_cmos(CMOS_REG_SECONDS);
     uint8_t minutes = read_from_cmos(CMOS_REG_MINUTES);
