@@ -25,12 +25,14 @@ void add_data_to_memory(char* str) {
 
 bool read_file(char* filename, char* buffer) {
 	int file_pos = find_file_in_pointerslist(filename);
-	if (file_pos != -1) {
-		string_copy(buffer, pointers[file_pos + 1]);
-		return TRUE;
+    
+    // file not exists
+	if (file_pos == -1) {
+    	return FALSE;
 	}
-	
-	return FALSE;
+
+    string_copy(buffer, pointers[file_pos + 1]);
+    return TRUE;	
 }
 
 void write_file(char* filename, char* contents) {
