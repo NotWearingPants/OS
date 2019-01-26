@@ -1,7 +1,7 @@
 #include "filesystem.h"
 #include "string.h"
 
-#define DOEST_EXIST     -1
+#define NOT_FOUND     -1
 
 void add_data_to_memory(char* str);
 int find_file_in_pointerslist(char* file_name);
@@ -29,7 +29,7 @@ bool read_file(char* filename, char* buffer) {
     int file_pos = find_file_in_pointerslist(filename);
     
     // file not exists
-    if (file_pos == DOEST_EXIST) {
+    if (file_pos == NOT_FOUND) {
         return FALSE;
     }
 
@@ -45,7 +45,7 @@ void write_file(char* filename, char* contents) {
 }
 
 bool is_file(char* filename) {
-    if (find_file_in_pointerslist(filename) == DOEST_EXIST) {
+    if (find_file_in_pointerslist(filename) == NOT_FOUND) {
         return FALSE;
     }
 
@@ -57,7 +57,7 @@ void delete_file(char* filename) {
     char* file_pointer;
 
     int file_addres_pos = find_file_in_pointerslist(filename);
-    if (file_addres_pos == DOEST_EXIST) {
+    if (file_addres_pos == NOT_FOUND) {
         return;
     }
     
@@ -82,7 +82,7 @@ int find_file_in_pointerslist(char* file_name) {
         }
     }
     // if file doesn't exists return not possible value for arr
-    return DOEST_EXIST;
+    return NOT_FOUND;
 }
 
 void /*?*/ move_file(/* ? */) {
