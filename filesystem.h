@@ -8,7 +8,7 @@ bool read_file(char* filename, char* buffer);
 void write_file(char* filename, char* contents);
 void delete_file(char* filename);
 void /*?*/ move_file(/* ? */);
-void /*?*/ is_file(/* ? */);
+bool is_file(char* filename);
 void /*?*/ get_file_size(/* ? */);
 
 /////////////////
@@ -20,5 +20,3 @@ void /*?*/ remove_directory(/* ? */);
 void /*?*/ move_directory(/* ? */);
 void /*?*/ is_directory(/* ? */);
 void /*?*/ get_directory_contents(/* ? */);
-
-bool file_exists(char* filename);

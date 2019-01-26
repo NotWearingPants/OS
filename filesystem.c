@@ -24,19 +24,19 @@ void add_data_to_memory(char* str) {
 ///////////////////////////////////////////////////////////////
 
 bool read_file(char* filename, char* buffer) {
-	int file_pos = find_file_in_pointerslist(filename);
+    int file_pos = find_file_in_pointerslist(filename);
     
     // file not exists
-	if (file_pos == -1) {
-    	return FALSE;
-	}
+    if (file_pos == -1) {
+        return FALSE;
+    }
 
     string_copy(buffer, pointers[file_pos + 1]);
     return TRUE;	
 }
 
 void write_file(char* filename, char* contents) {
-    if (file_exists(filename)) {
+    if (is_file(filename)) {
         delete_file(filename);
     }
     
@@ -44,12 +44,12 @@ void write_file(char* filename, char* contents) {
     add_data_to_memory(contents);
 }
 
-bool file_exists(char* filename) {
-	if (find_file_in_pointerslist(filename) == -1) {
-		return FALSE;
-	}
-	
-	return TRUE;
+bool is_file(char* filename) {
+    if (find_file_in_pointerslist(filename) == -1) {
+        return FALSE;
+    }
+
+    return TRUE;
 }
 
 // pointers_count is wrong because this func
@@ -57,40 +57,49 @@ bool file_exists(char* filename) {
 void delete_file(char* filename) {
     char* file_pointer;
 
-    int file_pos = find_file_in_pointerslist(filename);
-    if (file_pos != -1) {  	
-        file_pointer = pointers[file_pos];
+    int file_addres_pos = find_file_in_pointerslist(filename);
+    if (file_addres_pos == -1) {
+        return;
     }
+    
+    file_pointer = pointers[file_addres_pos];
 
 // in the memory saved name string and data string, we delet both
 // better name required!
-    int num = 0;
-    for (int file_pos = 0; num != 2; file_pos++) {
-        if (file_pointer[file_pos] == '\0') {
-            num++;
-        }
+    
+    // int num = 0;
+    // for (int file_pos = 0; num != 2; file_pos++) {
+    //     if (file_pointer[file_pos] == '\0') {
+    //         num++;
+    //     }
 
-        file_pointer[file_pos] = '\0';
+    //     file_pointer[file_pos] = '\0';
+    // }
+
+    
+    int file_pos = 0;
+    // delete file data and file name
+    for (int i = 0; i < 2; i++) {
+        for ( ; file_pointer + file_pos != '\0'; file_pos++) {
+            *(file_pointer + file_pos) = '\0';
+        }
+        file_pos++;
     }
 
-    // pointers Rotate 2 left
     // pointers_count -= 2;
 }
 
 int find_file_in_pointerslist(char* file_name) {
-	for (int name_pos = 0; name_pos < pointers_count; name_pos += 2) {
+    for (int name_pos = 0; name_pos < pointers_count; name_pos += 2) {
         if (string_compare(file_name, pointers[name_pos])) {
             return name_pos;
         }
     }
+    // file doesn't exists
     return -1;
 }
 
 void /*?*/ move_file(/* ? */) {
-    // TODO
-}
-
-void /*?*/ is_file(/* ? */) {
     // TODO
 }
 
