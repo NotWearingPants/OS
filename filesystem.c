@@ -1,7 +1,7 @@
 #include "filesystem.h"
 #include "string.h"
 
-#define FILE_ONT_FOUND     (-1)
+#define FILE_NOT_FOUND     (-1)
 
 void add_data_to_memory(char* str);
 int find_file_in_pointerslist(char* file_name);
@@ -28,7 +28,7 @@ int find_file_in_pointerslist(char* file_name) {
         }
     }
     // if file doesn't exists return not possible value for arr
-    return FILE_ONT_FOUND;
+    return FILE_NOT_FOUND;
 }
 
 ///////////////////////////////////////////////////////////////
@@ -39,7 +39,7 @@ bool read_file(char* filename, char* buffer) {
     int file_pos = find_file_in_pointerslist(filename);
     
     // file not exists
-    if (file_pos == FILE_ONT_FOUND) {
+    if (file_pos == FILE_NOT_FOUND) {
         return FALSE;
     }
 
@@ -59,7 +59,7 @@ void delete_file(char* filename) {
     char* file_pointer;
 
     int file_addres_pos = find_file_in_pointerslist(filename);
-    if (file_addres_pos == FILE_ONT_FOUND) {
+    if (file_addres_pos == FILE_NOT_FOUND) {
         return;
     }
     
@@ -83,7 +83,7 @@ void /*?*/ move_file(/* ? */) {
 }
 
 bool is_file(char* filename) {
-    if (find_file_in_pointerslist(filename) == FILE_ONT_FOUND) {
+    if (find_file_in_pointerslist(filename) == FILE_NOT_FOUND) {
         return FALSE;
     }
 
