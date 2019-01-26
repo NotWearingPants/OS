@@ -1,7 +1,7 @@
 #include "filesystem.h"
 #include "string.h"
 
-#define NOT_FOUND     (-1)
+#define FILE_ONT_FOUND     (-1)
 
 void add_data_to_memory(char* str);
 int find_file_in_pointerslist(char* file_name);
@@ -21,6 +21,16 @@ void add_data_to_memory(char* str) {
     pos += str_size + 1; // +1 for the null terminator
 }
 
+int find_file_in_pointerslist(char* file_name) {
+    for (int name_pos = 0; name_pos < pointers_count; name_pos += 2) {
+        if (string_compare(file_name, pointers[name_pos])) {
+            return name_pos;
+        }
+    }
+    // if file doesn't exists return not possible value for arr
+    return FILE_ONT_FOUND;
+}
+
 ///////////////////////////////////////////////////////////////
 //                           FILES                           //
 ///////////////////////////////////////////////////////////////
@@ -29,7 +39,7 @@ bool read_file(char* filename, char* buffer) {
     int file_pos = find_file_in_pointerslist(filename);
     
     // file not exists
-    if (file_pos == NOT_FOUND) {
+    if (file_pos == FILE_ONT_FOUND) {
         return FALSE;
     }
 
@@ -44,20 +54,12 @@ void write_file(char* filename, char* contents) {
     add_data_to_memory(contents);
 }
 
-bool is_file(char* filename) {
-    if (find_file_in_pointerslist(filename) == NOT_FOUND) {
-        return FALSE;
-    }
-
-    return TRUE;
-}
-
 // pointers_count is wrong because this func
 void delete_file(char* filename) {
     char* file_pointer;
 
     int file_addres_pos = find_file_in_pointerslist(filename);
-    if (file_addres_pos == NOT_FOUND) {
+    if (file_addres_pos == FILE_ONT_FOUND) {
         return;
     }
     
@@ -76,18 +78,16 @@ void delete_file(char* filename) {
     // pointers_count -= 2;
 }
 
-int find_file_in_pointerslist(char* file_name) {
-    for (int name_pos = 0; name_pos < pointers_count; name_pos += 2) {
-        if (string_compare(file_name, pointers[name_pos])) {
-            return name_pos;
-        }
-    }
-    // if file doesn't exists return not possible value for arr
-    return NOT_FOUND;
-}
-
 void /*?*/ move_file(/* ? */) {
     // TODO
+}
+
+bool is_file(char* filename) {
+    if (find_file_in_pointerslist(filename) == FILE_ONT_FOUND) {
+        return FALSE;
+    }
+
+    return TRUE;
 }
 
 void /*?*/ get_file_size(/* ? */) {
