@@ -1,7 +1,7 @@
 #include "filesystem.h"
 #include "string.h"
 
-#define NOT_FOUND     -1
+#define NOT_FOUND     (-1)
 
 void add_data_to_memory(char* str);
 int find_file_in_pointerslist(char* file_name);
@@ -69,6 +69,7 @@ void delete_file(char* filename) {
         for ( ; *(file_pointer + file_pos) != '\0'; file_pos++) {
             *(file_pointer + file_pos) = '\0';
         }
+        // skip on the end char ('\0') of the string name 
         file_pos++;
     }
 
