@@ -53,7 +53,6 @@ bool is_file(char* filename) {
 }
 
 // pointers_count is wrong because this func
-// this func destroys pointers count (add 2 to the val)
 void delete_file(char* filename) {
     char* file_pointer;
 
@@ -64,23 +63,10 @@ void delete_file(char* filename) {
     
     file_pointer = pointers[file_addres_pos];
 
-// in the memory saved name string and data string, we delet both
-// better name required!
-    
-    // int num = 0;
-    // for (int file_pos = 0; num != 2; file_pos++) {
-    //     if (file_pointer[file_pos] == '\0') {
-    //         num++;
-    //     }
-
-    //     file_pointer[file_pos] = '\0';
-    // }
-
-    
     int file_pos = 0;
     // delete file data and file name
     for (int i = 0; i < 2; i++) {
-        for ( ; file_pointer + file_pos != '\0'; file_pos++) {
+        for ( ; *(file_pointer + file_pos) != '\0'; file_pos++) {
             *(file_pointer + file_pos) = '\0';
         }
         file_pos++;
