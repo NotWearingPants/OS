@@ -54,27 +54,43 @@ void print_time(uint8_t x, uint8_t y, uint8_t color) {
 }
 
 void handle_command(char* command, uint8_t length_command) {
-    char* arr_pos_argv[50];
-    int count_words = string_split(command, ' ', arr_pos_argv);
+    char* arr_pos_arg[50];
+    int count_words = string_split(command, ' ', arr_pos_arg);
 
     if (count_words > 1) {
-        print_string(50, pos_y - 1, arr_pos_argv[1], DEFAULT_COLOR);
+        print_string(50, pos_y - 1, arr_pos_arg[1], DEFAULT_COLOR);
     }
     if (count_words > 0) {
         print_number(60, pos_y - 1, count_words - 1, DEFAULT_COLOR);
     }
 
-    if (string_compare(command, "time")) {
+    if (string_compare(arr_pos_arg[0], "time")) {
         print_time(0, pos_y, DEFAULT_COLOR);
         pos_y++;
 
-    } else if (string_compare(command, "read")) {
-        // print_string(0, pos_y, read_file(arr_pos_argv[1]), DEFAULT_COLOR);
-        pos_y++;
+    } else if (string_compare(arr_pos_arg[0], "read")) {
+        if (count_words != 2) {
+            print_string(0, pos_y++, "Usage: read <filename>", COLOR(LIGHT_RED, BLACK));
+            return;
+        }
 
-    } else if (string_compare(command, "write")) {
-        // write_file(arr_pos_argv[1], "text");
-        pos_y++;
+        char file_content[255];
+        if (!read_file(arr_pos_arg[1], file_content)) {
+            print_string(0, pos_y++, "the file does not exist", COLOR(LIGHT_RED, BLACK));
+            return;
+        }
+
+        print_string(0, pos_y++, file_content, DEFAULT_COLOR);
+
+    } else if (string_compare(arr_pos_arg[0], "write")) {
+        if (count_words != 2) {
+            print_string(0, pos_y++, "Usage: write <filename>", COLOR(LIGHT_RED, BLACK));
+            return;
+        }
+
+        char data[255];
+        string_read(0, pos_y++, data);
+        write_file(arr_pos_arg[1], data);
 
     } else if (!string_is_empty(command)) {
         print_string(0, pos_y, "'", DEFAULT_COLOR);
@@ -84,23 +100,4 @@ void handle_command(char* command, uint8_t length_command) {
         pos_y++;
 
     }
-}
-
-bool check_write_syntax(char* command) {
-    char arr[] = "write ";
-    int size = string_size(arr);
-    for (int i = 0; i < size; i++) {
-        if (command[i] != arr[i]) {
-            return 0;
-        }
-    }
-
-    char name[100];
-    for (int i = 0; command[size + i] != '\0'; i++) {
-        name[i] = command[size + i];
-    }
-
-    print_string(10, 10, name, DEFAULT_COLOR);
-
-    return 1;
 }

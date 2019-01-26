@@ -1,12 +1,14 @@
+#include "common.h"
+
 /////////////////
 //    FILES    //
 /////////////////
 
-char* read_file(char* filename);
+bool read_file(char* filename, char* buffer);
 void write_file(char* filename, char* contents);
-void /*?*/ delete_file(/* ? */);
+void delete_file(char* filename);
 void /*?*/ move_file(/* ? */);
-void /*?*/ is_file(/* ? */);
+bool is_file(char* filename);
 void /*?*/ get_file_size(/* ? */);
 
 /////////////////

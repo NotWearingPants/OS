@@ -27,11 +27,11 @@ bool string_is_empty(char* command) {
     return FALSE;
 }
 
-void string_copy(char* destination, char* source) {
+unsigned int string_copy(char* destination, char* source) {
     for (int i = 0; ; i++) {
         destination[i] = source[i];
         if (source[i] == '\0') {
-            break;
+            return i;
         }
     }
 }
@@ -126,21 +126,4 @@ unsigned int string_split(char* str, char delimeter, char** parts) {
     }
 
     return parts_count;
-}
-
-void string_append(char* arr1, char* arr2) {
-    // print_number(10, 15, string_size(destination), DEFAULT_COLOR);
-    //char new_arr[100];
-    
-    
-    /*
-    for (int i = 0; ; i++) {
-        if (arr1[i] != '\0') {
-            new_arr[i] = arr1[i];
-        }
-        else if (arr2[i] != '\0') {
-            new_arr[i] = arr2[i];
-        }
-    }
-    */
 }
