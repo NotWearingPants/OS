@@ -32,8 +32,10 @@ def build_os_binary():
     for c_file in pathlib.Path('.').glob('*.c'):
         c_filename = c_file.name
         obj_filename = c_filename.replace('.c', '.o')
+
         print('Compiling {}'.format(c_filename))
         compile_to_object(c_filename, obj_filename)
+
         obj_files.append(obj_filename)
 
     # link boot with the c files to create a binary
@@ -44,12 +46,16 @@ def build_os_binary():
     print('Padding...')
     total_necessary_size = KERNEL_SECTOR_LENGTH * 0x200
     with open('os.flp', 'ab') as output_binary_file:
+        # go to the end of the file
         output_binary_file.seek(0, os.SEEK_END)
+        # get the size of the file
         current_size = output_binary_file.tell()
+        # print the current size out of the total
         print('size: {} / {}'.format(current_size, total_necessary_size))
+        # pad the file with zeros to reach the necessary size
         output_binary_file.truncate(total_necessary_size)
 
-    # delete all obj files that were created
+    # delete all .o files that were created
     for obj_file in obj_files:
         pathlib.Path(obj_file).unlink()
 
