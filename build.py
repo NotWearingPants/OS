@@ -19,7 +19,7 @@ def link_to_binary(obj_files, dst_file):
         '--oformat=binary', '-melf_i386', '-Ttext=0x7C00', '--omagic',
         '-o', dst_file] + obj_files)
 
-def main():
+def build_os_binary():
     obj_files = []
 
     # assemble boot
@@ -54,6 +54,12 @@ def main():
         pathlib.Path(obj_file).unlink()
 
     print('Done.')
+
+def main():
+    try:
+        build_os_binary()
+    except subprocess.CalledProcessError:
+        print('There was an Error. Build aborted.')
 
 if __name__ == '__main__':
     main()
