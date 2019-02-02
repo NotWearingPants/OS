@@ -1,9 +1,9 @@
 #include "shell.h"
-#include "cmos.h"
-#include "screen.h"
-#include "keyboard.h"
-#include "string.h"
-#include "filesystem.h"
+#include "../kernel/cmos.h"
+#include "../kernel/screen.h"
+#include "../kernel/keyboard.h"
+#include "../kernel/string.h"
+#include "../kernel/filesystem.h"
 
 #define PROMPT ">>"
 #define PROMPT_LENGTH (sizeof(PROMPT) - 1)

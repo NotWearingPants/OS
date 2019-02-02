@@ -1,5 +1,4 @@
 #include "keyboard.h"
-#include "shell.h"
 
 /// 8042 PS/2 Controller ///
 
