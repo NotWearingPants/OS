@@ -11,16 +11,16 @@
 #include "../kernel/string.h"
 #include "../kernel/filesystem.h"
 
-void** pointer = 0x6c00;
-
 void main() {
     void* func_arr[] = { 
         (void*)print_string, (void*)print_number, (void*)string_read, (void*)read_from_cmos,
         (void*)read_from_cmos, (void*)string_split, (void*)string_compare, (void*)read_file,
         (void*)string_read,  (void*)write_file, (void*)string_is_empty, 
         };
+
+    void*** arr_pointers = (void***)0x6C00;
     
-    pointer = func_arr; 
+    (*arr_pointers) = func_arr;
 
     start_shell();
 }

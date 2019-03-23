@@ -2,7 +2,7 @@
 #include "../kernel/cmos.h"
 #include "../kernel/screen.h"
 #include "../kernel/keyboard.h"
-#include "../kernel/string.h"
+// #include "../kernel/string.h"
 #include "../kernel/filesystem.h"
 
 #define PROMPT ">>"
@@ -10,7 +10,23 @@
 
 uint8_t pos_y = 0;
 
+void*** arr_pointers = (void***)0x6C00;
+
+uint8_t (*string_read)(uint8_t pos_x, uint8_t pos_y, char* buffer);
+unsigned int (*string_split)(char* str, char delimeter, char** parts);
+bool (*string_compare)(char* left, char* right);
+bool (*string_is_empty)(char* command);
+
 void start_shell() {
+
+    void** func_arr = *arr_pointers;
+
+    // typedef uint8_t (*string_read)(uint8_t x1, uint8_t x2, char* x3);
+
+    string_read = (uint8_t (*)(uint8_t pos_x, uint8_t pos_y, char* buffer))(func_arr[2]);
+    string_split = (unsigned int (*)(char* str, char delimeter, char** parts))(func_arr[5]);
+    string_compare = (bool(*)(char* left, char* right))(func_arr[6]);
+    string_is_empty = (bool (*)(char* command))(func_arr[10]);
 
     while (TRUE) {
         print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
