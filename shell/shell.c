@@ -12,10 +12,10 @@ uint8_t pos_y = 0;
 
 void*** arr_pointers = (void***)0x6C00;
 
-uint8_t (*string_read)(uint8_t pos_x, uint8_t pos_y, char* buffer);
-unsigned int (*string_split)(char* str, char delimeter, char** parts);
-bool (*string_compare)(char* left, char* right);
-bool (*string_is_empty)(char* command);
+static uint8_t (*string_read)(uint8_t pos_x, uint8_t pos_y, char* buffer);
+static unsigned int (*string_split)(char* str, char delimeter, char** parts);
+static bool (*string_compare)(char* left, char* right);
+static bool (*string_is_empty)(char* command);
 
 void start_shell() {
 
