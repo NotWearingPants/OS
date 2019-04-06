@@ -1,12 +1,44 @@
 #include "shell.h"
 // #include "../kernel/cmos.h"
-#include "../kernel/screen.h"
+// #include "../kernel/screen.h"
 // #include "../kernel/keyboard.h"
 // #include "../kernel/string.h"
 // #include "../kernel/filesystem.h"
 
 #define PROMPT ">>"
 #define PROMPT_LENGTH (sizeof(PROMPT) - 1)
+
+enum cmos_reg {
+    CMOS_REG_SECONDS = 0x00,
+    CMOS_REG_MINUTES = 0x02,
+    CMOS_REG_HOURS = 0x04,
+    CMOS_REG_DAY = 0x07,
+    CMOS_REG_MONTH = 0x08,
+    CMOS_REG_YEAR = 0x09,
+};
+
+enum Color {
+    COLOR_BLACK         = 0x0,
+    COLOR_BLUE          = 0x1,
+    COLOR_GREEN         = 0x2,
+    COLOR_AQUA          = 0x3,
+    COLOR_RED           = 0x4,
+    COLOR_PURPLE        = 0x5,
+    COLOR_YELLOW        = 0x6,
+    COLOR_WHITE         = 0x7,
+    COLOR_GRAY          = 0x8,
+    COLOR_LIGHT_BLUE    = 0x9,
+    COLOR_LIGHT_GREEN   = 0xA,
+    COLOR_LIGHT_AQUA    = 0xB,
+    COLOR_LIGHT_RED     = 0xC,
+    COLOR_LIGHT_PURPLE  = 0xD,
+    COLOR_LIGHT_YELLOW  = 0xE,
+    COLOR_BRIGHT_WHITE  = 0xF,
+};
+
+#define COLOR(text_color, background_color) ((((uint8_t)COLOR_##background_color) << 4) | ((uint8_t)COLOR_##text_color))
+
+#define DEFAULT_COLOR COLOR(BRIGHT_WHITE, BLACK)
 
 uint8_t pos_y = 0;
 
@@ -21,6 +53,7 @@ static bool (*string_compare)(char* left, char* right);
 static bool (*read_file)(char* filename, char* buffer);
 static void (*write_file)(char* filename, char* contents);
 static bool (*string_is_empty)(char* command);
+static void (*print_char)(uint8_t x, uint8_t y, uint8_t character, uint8_t color);
 
 void start_shell() {
 
@@ -28,15 +61,16 @@ void start_shell() {
 
     // typedef uint8_t (*string_read)(uint8_t x1, uint8_t x2, char* x3);
 
-    print_string    = (uint8_t (*)(uint8_t x, uint8_t y, char *string, uint8_t color)) (func_arr[0]);
-    print_number    = (void (*)(uint8_t x, uint8_t y, uint32_t num, uint8_t color))    (func_arr[1]);
-    string_read     = (uint8_t (*)(uint8_t pos_x, uint8_t pos_y, char* buffer))        (func_arr[2]);
-    read_from_cmos  = (uint8_t (*)(uint8_t reg))                                       (func_arr[3]);
-    string_split    = (unsigned int (*)(char* str, char delimeter, char** parts))      (func_arr[4]);
-    string_compare  = (bool (*)(char* left, char* right))                              (func_arr[5]);
-    read_file       = (bool (*)(char* filename, char* buffer))                         (func_arr[6]);
-    write_file      = (void (*)(char* filename, char* contents))                       (func_arr[7]);
-    string_is_empty = (bool (*)(char* command))                                        (func_arr[8]);
+    print_string    = (uint8_t (*)(uint8_t x, uint8_t y, char *string, uint8_t color))  (func_arr[0]);
+    print_number    = (void (*)(uint8_t x, uint8_t y, uint32_t num, uint8_t color))     (func_arr[1]);
+    string_read     = (uint8_t (*)(uint8_t pos_x, uint8_t pos_y, char* buffer))         (func_arr[2]);
+    read_from_cmos  = (uint8_t (*)(uint8_t reg))                                        (func_arr[3]);
+    string_split    = (unsigned int (*)(char* str, char delimeter, char** parts))       (func_arr[4]);
+    string_compare  = (bool (*)(char* left, char* right))                               (func_arr[5]);
+    read_file       = (bool (*)(char* filename, char* buffer))                          (func_arr[6]);
+    write_file      = (void (*)(char* filename, char* contents))                        (func_arr[7]);
+    string_is_empty = (bool (*)(char* command))                                         (func_arr[8]);
+    print_char      = (void (*)(uint8_t x, uint8_t y, uint8_t character, uint8_t color))(func_arr[9]);
 
     while (TRUE) {
         print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
