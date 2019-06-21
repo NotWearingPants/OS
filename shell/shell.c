@@ -1,5 +1,6 @@
 #include "shell.h"
-#include "../test.h"
+#include "../common/test.h"
+
 
 // #include "../kernel/cmos.h"
 // #include "../kernel/screen.h"

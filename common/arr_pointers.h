@@ -1,7 +1,7 @@
 #ifndef _ARR_POINTERS_H_
 #define _ARR_POINTERS_H_
 
-#include "kernel/common.h"
+#include "../kernel/common.h"
 
 static uint8_t (*print_string)(uint8_t x, uint8_t y, char *string, uint8_t color);
 static void (*print_number)(uint8_t x, uint8_t y, uint32_t num, uint8_t color);
