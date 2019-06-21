@@ -3,7 +3,7 @@
 #include "pic.h"
 #include "keyboard.h"
 #include "../shell/shell.h"
-
+#include "../hello-world/hello-world.h"
 
 #include "../kernel/cmos.h"
 #include "../kernel/screen.h"
