@@ -1,5 +1,5 @@
-#ifndef _ARR_POINTERS_H_
-#define _ARR_POINTERS_H_
+#ifndef _SYSTEM_FUNC_DISCALIMER_H_
+#define _SYSTEM_FUNC_DISCALIMER_H_
 
 #include "../kernel/common.h"
 
