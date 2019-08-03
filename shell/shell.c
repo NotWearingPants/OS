@@ -3,12 +3,6 @@
 #include "../common/cmos_.h"
 #include "../common/system_func_declaration.h"
 
-// #include "../kernel/cmos.h"
-// #include "../kernel/screen.h"
-// #include "../kernel/keyboard.h"
-// #include "../kernel/string.h"
-// #include "../kernel/filesystem.h"
-
 #define PROMPT ">>"
 #define PROMPT_LENGTH (sizeof(PROMPT) - 1)
 
