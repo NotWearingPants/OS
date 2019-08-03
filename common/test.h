@@ -3,6 +3,6 @@
 
 #include "screen_.h"
 #include "cmos_.h"
-#include "system_func_disclaimer.h"
+#include "system_func_declaration.h"
 
 #endif
