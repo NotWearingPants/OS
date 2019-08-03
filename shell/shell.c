@@ -10,6 +10,7 @@ uint8_t pos_y = 0;
 
 void start_shell() {
     init_pointers();
+    
     while (TRUE) {
         print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
 
