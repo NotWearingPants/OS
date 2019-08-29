@@ -2,7 +2,7 @@
 #define _SCREEN_H_
 
 #include "../common/screen_.h"
-#include "common.h"
+#include "../common/common.h"
 
 #define SCREEN_ADDRESS ((uint8_t*)0xb8000)
 

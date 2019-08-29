@@ -1,7 +1,6 @@
 #include "string.h"
 #include "keyboard.h"
 #include "screen.h"
-#include "common.h"
 
 bool string_compare(char* left, char* right) {
     int i = 0;
