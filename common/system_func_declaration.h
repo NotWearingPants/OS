@@ -1,5 +1,5 @@
-#ifndef _SYSTEM_FUNC_DISCALIMER_H_
-#define _SYSTEM_FUNC_DISCALIMER_H_
+#ifndef _SYSTEM_FUNC_DECLARATION_H_
+#define _SYSTEM_FUNC_DECLARATION_H_
 
 #include "../kernel/common.h"
 
