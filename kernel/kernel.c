@@ -14,7 +14,7 @@ void main() {
     void* func_arr[] = { 
         (void*)print_string, (void*)print_number, (void*)string_read, (void*)read_from_cmos,
         (void*)string_split, (void*)string_compare, (void*)read_file, (void*)write_file, 
-        (void*)string_is_empty, (void*)print_char,
+        (void*)string_is_empty, (void*)print_char, (void*)power,
         };
 
     void*** arr_pointers = (void***)0x6C00;
