@@ -4,11 +4,9 @@
 #include "keyboard.h"
 #include "../shell/shell.h"
 
-#include "../kernel/cmos.h"
-#include "../kernel/screen.h"
-#include "../kernel/keyboard.h"
-#include "../kernel/string.h"
-#include "../kernel/filesystem.h"
+#include "cmos.h"
+#include "string.h"
+#include "filesystem.h"
 
 void main() {
     void* func_arr[] = { 
