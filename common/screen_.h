@@ -24,4 +24,7 @@ enum Color {
 
 #define DEFAULT_COLOR COLOR(BRIGHT_WHITE, BLACK)
 
+#define SCREEN_WIDTH 80
+#define SCREEN_HEIGHT 25
+
 #endif
