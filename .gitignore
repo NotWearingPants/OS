@@ -1,3 +1,4 @@
 *.o
 /os.flp
 /shell.bin
+/shell_bin.h

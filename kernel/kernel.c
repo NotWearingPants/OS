@@ -10,6 +10,10 @@
 
 #include "../common/system_funcs.h"
 
+#include "../shell_bin.h"
+
+typedef void (*_start_t)();
+
 void main() {
     void* func_arr[] = {
         #define X(return_type, name, parameters) (void*)name,
@@ -20,8 +24,7 @@ void main() {
     void*** arr_pointers = (void***)FUNC_ARR_ADDRESS;
     *arr_pointers = func_arr;
 
-    // start_shell();
-    while (TRUE) { }
+    ((_start_t)(shell_bin + 0x2A7))();
 }
 
 void handle_interrupt(uint8_t interrupt_number) {

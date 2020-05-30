@@ -35,28 +35,32 @@ def compile_c_files(c_files):
     return obj_files
 
 def build_os_binary():
-    kernel_obj_files = []
     shell_obj_files = []
+
+    print('Compiling Common...')
+    common_obj_files = compile_c_files(pathlib.Path('.').glob('common/*.c'))
+
+    print('Compiling Shell...')
+    shell_obj_files += common_obj_files
+    shell_obj_files += compile_c_files(pathlib.Path('.').glob('shell/*.c'))
+
+    # link boot with the c files to create a binary
+    print('Linking Shell...')
+    link_to_binary(shell_obj_files, 'shell.bin')
+
+    subprocess.check_call(['xxd', '--include', 'shell.bin', 'shell_bin.h'])
+
+    kernel_obj_files = []
 
     # assemble boot
     print('Assembling boot...')
     assemble_to_object(str(pathlib.Path('kernel/boot.asm')), str(pathlib.Path('kernel/boot.o')))
     kernel_obj_files.append(str(pathlib.Path('kernel/boot.o')))
 
-    # compile all c files in the current directory
-    print('Compiling...')
-    common_obj_files = compile_c_files(pathlib.Path('.').glob('common/*.c'))
-
+    print('Compiling Kernel...')
     kernel_obj_files += common_obj_files
     kernel_obj_files += compile_c_files(pathlib.Path('.').glob('kernel/*.c'))
-
-    shell_obj_files += common_obj_files
-    shell_obj_files += compile_c_files(pathlib.Path('.').glob('shell/*.c'))
-
-    # link boot with the c files to create a binary
-    print('Linking...')
     link_to_binary(kernel_obj_files, 'os.flp')
-    link_to_binary(shell_obj_files, 'shell.bin')
 
     # pad the binary to the necessary size
     print('Padding...')

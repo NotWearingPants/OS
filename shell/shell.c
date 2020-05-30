@@ -14,7 +14,11 @@ void _start() {
 
 void start_shell() {
     init_pointers();
-    
+    char prompt[] = { '>', '>', '\0' };
+    print_string(0, 0, prompt, DEFAULT_COLOR);
+    while (TRUE) { }
+
+    print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
     while (TRUE) {
         print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
 
