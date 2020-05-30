@@ -10,7 +10,7 @@ def assemble_to_object(src_file, dst_file):
 def compile_to_object(src_file, dst_file):
     subprocess.check_call([
         'gcc',
-        '-m32', '-nostdlib', '-Wall', '-Werror', '-Wno-main', '-std=c11', '-fno-asynchronous-unwind-tables',
+        '-m32', '-nostdlib', '-Wall', '-Werror', '-Wno-main', '-std=c11', '-fno-asynchronous-unwind-tables', '-fno-pie',
         '-c', '-o', dst_file, src_file])
 
 def link_to_binary(obj_files, dst_file):
