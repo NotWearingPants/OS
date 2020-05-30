@@ -3,6 +3,7 @@ import pathlib
 import subprocess
 
 KERNEL_SECTOR_LENGTH = 50
+SECTOR_SIZE = 0x200
 
 def assemble_to_object(src_file, dst_file):
     subprocess.check_call(['nasm', '-felf32', '-o', dst_file, src_file])
@@ -44,7 +45,7 @@ def build_os_binary():
 
     # pad the binary to the necessary size
     print('Padding...')
-    total_necessary_size = KERNEL_SECTOR_LENGTH * 0x200
+    total_necessary_size = KERNEL_SECTOR_LENGTH * SECTOR_SIZE
     with open('os.flp', 'ab') as output_binary_file:
         # go to the end of the file
         output_binary_file.seek(0, os.SEEK_END)
