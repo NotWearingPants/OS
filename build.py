@@ -20,17 +20,10 @@ def link_to_binary(obj_files, dst_file):
         '--oformat=binary', '-melf_i386', '-Ttext=0x7C00', '--omagic',
         '-o', dst_file] + obj_files)
 
-def build_os_binary():
+def compile_c_files(c_files):
     obj_files = []
 
-    # assemble boot
-    print('Assembling boot...')
-    assemble_to_object(str(pathlib.Path('kernel/boot.asm')), str(pathlib.Path('kernel/boot.o')))
-    obj_files.append(str(pathlib.Path('kernel/boot.o')))
-
-    # compile all c files in the current directory
-    print('Compiling...')
-    for c_file in pathlib.Path('.').glob('*/*.c'):
+    for c_file in c_files:
         c_filename = str(c_file)
         obj_filename = c_filename.replace('.c', '.o')
 
@@ -39,9 +32,31 @@ def build_os_binary():
 
         obj_files.append(obj_filename)
 
+    return obj_files
+
+def build_os_binary():
+    kernel_obj_files = []
+    shell_obj_files = []
+
+    # assemble boot
+    print('Assembling boot...')
+    assemble_to_object(str(pathlib.Path('kernel/boot.asm')), str(pathlib.Path('kernel/boot.o')))
+    kernel_obj_files.append(str(pathlib.Path('kernel/boot.o')))
+
+    # compile all c files in the current directory
+    print('Compiling...')
+    common_obj_files = compile_c_files(pathlib.Path('.').glob('common/*.c'))
+
+    kernel_obj_files += common_obj_files
+    kernel_obj_files += compile_c_files(pathlib.Path('.').glob('kernel/*.c'))
+
+    shell_obj_files += common_obj_files
+    shell_obj_files += compile_c_files(pathlib.Path('.').glob('shell/*.c'))
+
     # link boot with the c files to create a binary
     print('Linking...')
-    link_to_binary(obj_files, 'os.flp')
+    link_to_binary(kernel_obj_files, 'os.flp')
+    link_to_binary(shell_obj_files, 'shell.bin')
 
     # pad the binary to the necessary size
     print('Padding...')
@@ -57,7 +72,7 @@ def build_os_binary():
         output_binary_file.truncate(total_necessary_size)
 
     # delete all .o files that were created
-    for obj_file in obj_files:
+    for obj_file in pathlib.Path('.').glob('*/*.o'):
         pathlib.Path(obj_file).unlink()
 
     print('Done.')

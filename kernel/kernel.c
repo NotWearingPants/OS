@@ -2,7 +2,7 @@
 #include "screen.h"
 #include "pic.h"
 #include "keyboard.h"
-#include "../shell/shell.h"
+// #include "../shell/shell.h"
 
 #include "cmos.h"
 #include "string.h"
@@ -20,7 +20,8 @@ void main() {
     void*** arr_pointers = (void***)FUNC_ARR_ADDRESS;
     *arr_pointers = func_arr;
 
-    start_shell();
+    // start_shell();
+    while (TRUE) { }
 }
 
 void handle_interrupt(uint8_t interrupt_number) {

@@ -8,6 +8,10 @@
 
 uint8_t pos_y = 0;
 
+void _start() {
+    start_shell();
+}
+
 void start_shell() {
     init_pointers();
     
