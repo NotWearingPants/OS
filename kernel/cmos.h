@@ -1,4 +1,5 @@
-#include "../common/common.h"
-#include "../common/cmos.h"
+#include "../common/api/cmos.h"
 
-uint8_t read_from_cmos(uint8_t reg);
+#define X(return_type, name, parameters) return_type name parameters;
+SYSTEM_FUNCS_CMOS
+#undef X

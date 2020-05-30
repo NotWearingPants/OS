@@ -1,5 +1,7 @@
-#ifndef _CMOS__H_
-#define _CMOS__H_
+#ifndef _API_CMOS_H_
+#define _API_CMOS_H_
+
+#include "../common.h"
 
 enum cmos_reg {
     CMOS_REG_SECONDS = 0x00,
@@ -9,5 +11,8 @@ enum cmos_reg {
     CMOS_REG_MONTH = 0x08,
     CMOS_REG_YEAR = 0x09,
 };
+
+#define SYSTEM_FUNCS_CMOS \
+    X(uint8_t, read_from_cmos, (uint8_t reg))
 
 #endif

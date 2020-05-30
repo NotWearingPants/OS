@@ -1,6 +1,6 @@
 #include "shell.h"
-#include "../common/screen.h"
-#include "../common/cmos.h"
+#include "../common/api/screen.h"
+#include "../common/api/cmos.h"
 #include "../common/system_func_declaration.h"
 
 #define PROMPT ">>"

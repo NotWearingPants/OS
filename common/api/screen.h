@@ -1,5 +1,7 @@
-#ifndef _SCREEN__H_
-#define _SCREEN__H_
+#ifndef _API_SCREEN_H_
+#define _API_SCREEN_H_
+
+#include "../common.h"
 
 enum Color {
     COLOR_BLACK         = 0x0,
@@ -26,5 +28,12 @@ enum Color {
 
 #define SCREEN_WIDTH 80
 #define SCREEN_HEIGHT 25
+
+#define SYSTEM_FUNCS_SCREEN \
+    X(void, print_char, (uint8_t x, uint8_t y, uint8_t character, uint8_t color)) \
+    X(uint8_t, print_string, (uint8_t x, uint8_t y, char *string, uint8_t color)) \
+    X(void, move_cursor, (uint8_t x, uint8_t y))                                  \
+    X(void, print_number, (uint8_t x, uint8_t y, uint32_t num, uint8_t color))    \
+    X(uint32_t, power, (uint32_t num, uint16_t n))
 
 #endif
