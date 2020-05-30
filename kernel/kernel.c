@@ -8,16 +8,17 @@
 #include "string.h"
 #include "filesystem.h"
 
-void main() {
-    void* func_arr[] = { 
-        (void*)print_string, (void*)print_number, (void*)string_read, (void*)read_from_cmos,
-        (void*)string_split, (void*)string_compare, (void*)read_file, (void*)write_file, 
-        (void*)string_is_empty, (void*)print_char, (void*)power,
-        };
+#include "../common/system_funcs.h"
 
-    void*** arr_pointers = (void***)0x6C00;
-    
-    (*arr_pointers) = func_arr;
+void main() {
+    void* func_arr[] = {
+        #define X(return_type, name, parameters) (void*)name,
+        SYSTEM_FUNCS
+        #undef X
+    };
+
+    void*** arr_pointers = (void***)FUNC_ARR_ADDRESS;
+    *arr_pointers = func_arr;
 
     start_shell();
 }

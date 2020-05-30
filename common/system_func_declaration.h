@@ -1,37 +1,26 @@
 #ifndef _SYSTEM_FUNC_DECLARATION_H_
 #define _SYSTEM_FUNC_DECLARATION_H_
 
-#include "./common.h"
+#include "system_funcs.h"
 
-static uint8_t (*print_string)(uint8_t x, uint8_t y, char *string, uint8_t color);
-static void (*print_number)(uint8_t x, uint8_t y, uint32_t num, uint8_t color);
-static uint8_t (*string_read)(uint8_t pos_x, uint8_t pos_y, char* buffer);
-static uint8_t (*read_from_cmos)(uint8_t reg);
-static unsigned int (*string_split)(char* str, char delimeter, char** parts);
-static bool (*string_compare)(char* left, char* right);
-static bool (*read_file)(char* filename, char* buffer);
-static void (*write_file)(char* filename, char* contents);
-static bool (*string_is_empty)(char* command);
-static void (*print_char)(uint8_t x, uint8_t y, uint8_t character, uint8_t color);
-static uint32_t (*power)(uint32_t num, uint16_t n);
+#define X(return_type, name, parameters) typedef return_type (*name##_t)parameters;
+SYSTEM_FUNCS
+#undef X
+
+#define X(return_type, name, parameters) static name##_t name;
+SYSTEM_FUNCS
+#undef X
 
 static void init_pointers()
 {
-    void*** arr_pointers = (void***)0x6C00;
+    void*** arr_pointers = (void***)FUNC_ARR_ADDRESS;
     void** func_arr = *arr_pointers;
 
-    print_string    = (uint8_t (*)(uint8_t x, uint8_t y, char *string, uint8_t color))  (func_arr[0]);
-    print_number    = (void (*)(uint8_t x, uint8_t y, uint32_t num, uint8_t color))     (func_arr[1]);
-    string_read     = (uint8_t (*)(uint8_t pos_x, uint8_t pos_y, char* buffer))         (func_arr[2]);
-    read_from_cmos  = (uint8_t (*)(uint8_t reg))                                        (func_arr[3]);
-    string_split    = (unsigned int (*)(char* str, char delimeter, char** parts))       (func_arr[4]);
-    string_compare  = (bool (*)(char* left, char* right))                               (func_arr[5]);
-    read_file       = (bool (*)(char* filename, char* buffer))                          (func_arr[6]);
-    write_file      = (void (*)(char* filename, char* contents))                        (func_arr[7]);
-    string_is_empty = (bool (*)(char* command))                                         (func_arr[8]);
-    print_char      = (void (*)(uint8_t x, uint8_t y, uint8_t character, uint8_t color))(func_arr[9]);
-    power           = (uint32_t (*)(uint32_t num, uint16_t n))                          (func_arr[10]);
+    int i = 0;
 
+    #define X(return_type, name, parameters) name = (name##_t)(func_arr[i++]);
+    SYSTEM_FUNCS
+    #undef X
 }
 
 #endif
