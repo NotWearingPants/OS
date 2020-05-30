@@ -1,4 +1,4 @@
-#include "common.h"
+#include "../common/common.h"
 
 #define PIC1_START 0x08
 #define PIC2_START 0x70

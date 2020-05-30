@@ -10,7 +10,7 @@ def assemble_to_object(src_file, dst_file):
 def compile_to_object(src_file, dst_file):
     subprocess.check_call([
         'gcc',
-        '-m32', '-nostdlib', '-Wall', '-Werror', '-Wno-main', '-std=c11', '-fno-asynchronous-unwind-tables',
+        '-m32', '-nostdlib', '-Wall', '-Werror', '-Wno-main', '-std=c11', '-fno-asynchronous-unwind-tables', '-fno-pie',
         '-c', '-o', dst_file, src_file])
 
 def link_to_binary(obj_files, dst_file):
@@ -24,13 +24,13 @@ def build_os_binary():
 
     # assemble boot
     print('Assembling boot...')
-    assemble_to_object('boot.asm', 'boot.o')
-    obj_files.append('boot.o')
+    assemble_to_object(str(pathlib.Path('kernel/boot.asm')), str(pathlib.Path('kernel/boot.o')))
+    obj_files.append(str(pathlib.Path('kernel/boot.o')))
 
     # compile all c files in the current directory
     print('Compiling...')
-    for c_file in pathlib.Path('.').glob('*.c'):
-        c_filename = c_file.name
+    for c_file in pathlib.Path('.').glob('*/*.c'):
+        c_filename = str(c_file)
         obj_filename = c_filename.replace('.c', '.o')
 
         print('Compiling {}'.format(c_filename))

@@ -1,9 +1,7 @@
 #include "shell.h"
-#include "cmos.h"
-#include "screen.h"
-#include "keyboard.h"
-#include "string.h"
-#include "filesystem.h"
+#include "../common/api/screen.h"
+#include "../common/api/cmos.h"
+#include "../common/system_func_declaration.h"
 
 #define PROMPT ">>"
 #define PROMPT_LENGTH (sizeof(PROMPT) - 1)
@@ -11,7 +9,8 @@
 uint8_t pos_y = 0;
 
 void start_shell() {
-
+    init_pointers();
+    
     while (TRUE) {
         print_string(0, pos_y, PROMPT, DEFAULT_COLOR);
 
