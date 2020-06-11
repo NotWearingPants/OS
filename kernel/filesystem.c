@@ -1,19 +1,29 @@
 #include "filesystem.h"
 #include "string.h"
+#include "memory.h"
 
 #define FILE_NOT_FOUND     (-1)
 
-void add_data_to_memory(char* str);
+void add_data_to_memory(char* data, unsigned int size);
+void add_str_to_memory(char* str);
 int find_file_in_pointerslist(char* file_name);
 
 char memory[1000];
 char* pointers[255];
 int pointers_count = 0;
+int pos = 0;
 
 // fix the size of the memory in the future
 
-void add_data_to_memory(char* str) {
-    static int pos = 0;
+void add_data_to_memory(char* data, unsigned int size) {
+    pointers[pointers_count] = &memory[pos];
+    pointers_count++;
+
+    memory_copy(&memory[pos], data, size);
+    pos += size;
+}
+
+void add_str_to_memory(char* str) {
     pointers[pointers_count] = &memory[pos];
     pointers_count++;
 
@@ -47,11 +57,11 @@ bool read_file(char* filename, char* buffer) {
     return TRUE;	
 }
 
-void write_file(char* filename, char* contents) {
+void write_file(char* filename, char* contents, unsigned int size) {
     delete_file(filename);
     
-    add_data_to_memory(filename);
-    add_data_to_memory(contents);
+    add_str_to_memory(filename);
+    add_data_to_memory(contents, size);
 }
 
 // pointers_count is wrong because this func
